@@ -50,10 +50,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    height: '20rem',
+    paddingTop: '10rem'
+    
   },
   heroButtons: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(0),
+    
+    
   },
   cardHeader: {
     backgroundColor:
@@ -90,12 +95,12 @@ const cards = [
   },
   {
     title: 'Step 2',    
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+    description: ['Input all relevat details in the fields provided including amount to pay'],
     image: './images/image-1.png'
   },
   {
     title: 'Step 3',    
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+    description: ['Make payment online through our payment partner and recieve value.'],
     image: './images/image-1.png'
   },
 
@@ -132,11 +137,11 @@ export default function Album() {
           <Container maxWidth="lg" height="5rem">
             
             <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center" height="50%">
+              <Grid container spacing={2} justify="center" >
                 
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
+                  <Button  variant="contained" color="primary">
+                    select a service to pay for
                   </Button>
                 </Grid>
                 <Grid item>
@@ -148,10 +153,10 @@ export default function Album() {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+          <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
               How It Works
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography variant="p" align="center" color="textSecondary" paragraph>
             Paying for any service online should be easy, convenient and secure. 
             we have curated a 3 step way for you to quickly top up your airtime, 
             renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light. 
@@ -174,7 +179,7 @@ export default function Album() {
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
-                    ${card.description}
+                    {card.description}
                   </CardContent>
                   
                 </Card>
