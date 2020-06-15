@@ -66,7 +66,7 @@ const tv = [
 ]
 
 const Form = () => {
-  const classes = useStyles();
+  const classes = useStyles(theme);
   const [selectedTv, setTV] = useState('')
 
   return (
@@ -101,7 +101,7 @@ const Form = () => {
 }
 
 export default function SpringModal(props) {
-  const classes = useStyles();
+  const classes = useStyles(theme);
   const {open, handleClose} = props;
   console.log(open);
 

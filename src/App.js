@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 // import Toolbar from '@material-ui/core/Toolbar';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -116,6 +117,7 @@ const cards = [
 export default function Album() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  let serviceRef = React.useRef();
 
   const handleOpen = () => {
     setOpen(true);
@@ -124,6 +126,13 @@ export default function Album() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const scrollTo = (ref) => {
+  if (ref /* + other conditions */) {
+    // ref.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop })
+  }
+}
 
   return (
     <React.Fragment>
@@ -156,7 +165,7 @@ export default function Album() {
               <Grid container spacing={2} justify="center" >
 
                 <Grid item>
-                  <Button  variant="contained" color="primary">
+                  <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
                     select a service to pay for
                   </Button>
                 </Grid>
@@ -169,52 +178,57 @@ export default function Album() {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
-            How It Works
-          </Typography>
-          <Typography variant="body1" align="center" color="textSecondary" paragraph>
-            Paying for any service online should be easy, convenient and secure.
-            we have curated a 3 step way for you to quickly top up your airtime,
-            renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
-          </Typography>
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardHeader
-                    title={card.title}
+          <Paper>
+            <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
+              How It Works
+            </Typography>
+            <Typography variant="body1" align="center" color="textSecondary" paragraph>
+              Paying for any service online should be easy, convenient and secure.
+              we have curated a 3 step way for you to quickly top up your airtime,
+              renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+            </Typography>
 
-                    titleTypographyProps={{ align: 'center' }}
-                    subheaderTypographyProps={{ align: 'center' }}
+            <Grid container spacing={4}>
+              {cards.map((card) => (
+                <Grid item key={card.id} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <CardHeader
+                      title={card.title}
 
-                    className={classes.cardHeader}
-                  />
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={card.image}
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    {card.description}
-                  </CardContent>
+                      titleTypographyProps={{ align: 'center' }}
+                      subheaderTypographyProps={{ align: 'center' }}
 
-                </Card>
+                      className={classes.cardHeader}
+                    />
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={card.image}
+                      title="Image title"
+                    />
+                    <CardContent className={classes.cardContent}>
+                      {card.description}
+                    </CardContent>
+
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Paper>
+          <Paper ref={serviceRef}>
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={4}>
+                <Option/>
               </Grid>
-            ))}
-          </Grid>
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={4}>
-              <Option/>
+              <Grid item xs={12} sm={4}>
+                <Option
+                  handleOpen={handleOpen}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Option/>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <Option
-                handleOpen={handleOpen}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Option/>
-            </Grid>
-          </Grid>
+          </Paper>
         </Container>
         <Modal
           open={open}
