@@ -12,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CardHeader from '@material-ui/core/CardHeader';
 import Link from '@material-ui/core/Link';
+import Option from './components/card'
+import Modal from './components/modal'
 
 // import App from './App';
 
@@ -53,12 +55,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
     height: '20rem',
     paddingTop: '10rem'
-    
+
   },
   heroButtons: {
     marginTop: theme.spacing(0),
-    
-    
+
+
   },
   cardHeader: {
     backgroundColor:
@@ -89,17 +91,20 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [
   {
-    title: 'Step 1',    
+    id: 1,
+    title: 'Step 1',
     description: ['Select the service you would like to pay for (Disco bill, Internet data, Airtime)'],
-    image: './images/image-1.png' 
-  },
-  {
-    title: 'Step 2',    
-    description: ['Input all relevat details in the fields provided including amount to pay'],
     image: './images/image-1.png'
   },
   {
-    title: 'Step 3',    
+    id: 2,
+    title: 'Step 2',
+    description: ['Input all relevant details in the fields provided including amount to pay'],
+    image: './images/image-1.png'
+  },
+  {
+    id: 3,
+    title: 'Step 3',
     description: ['Make payment online through our payment partner and recieve value.'],
     image: './images/image-1.png'
   },
@@ -108,29 +113,38 @@ const cards = [
 
 export default function Album() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      {/* <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            Access Tech Bills
+        Access Tech Bills
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-             Home
-            </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              How it works
-            </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Self Support
-            </Link>
+        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+        Home
+        </Link>
+        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+        How it works
+        </Link>
+        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+        Self Support
+        </Link>
           </nav>
-          
+
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -138,14 +152,14 @@ export default function Album() {
             
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center" >
-                
+
                 <Grid item>
                   <Button  variant="contained" color="primary">
                     select a service to pay for
                   </Button>
                 </Grid>
                 <Grid item>
-               
+
                 </Grid>
               </Grid>
             </div>
@@ -154,25 +168,25 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
-              How It Works
-            </Typography>
-            <Typography variant="p" align="center" color="textSecondary" paragraph>
-            Paying for any service online should be easy, convenient and secure. 
-            we have curated a 3 step way for you to quickly top up your airtime, 
-            renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light. 
-            </Typography>
+            How It Works
+          </Typography>
+          <Typography variant="body1" align="center" color="textSecondary" paragraph>
+            Paying for any service online should be easy, convenient and secure.
+            we have curated a 3 step way for you to quickly top up your airtime,
+            renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+          </Typography>
           <Grid container spacing={4}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
-                <CardHeader
-                  title={card.title}
-                 
-                  titleTypographyProps={{ align: 'center' }}
-                  subheaderTypographyProps={{ align: 'center' }}
-                 
-                  className={classes.cardHeader}
-                />
+                  <CardHeader
+                    title={card.title}
+
+                    titleTypographyProps={{ align: 'center' }}
+                    subheaderTypographyProps={{ align: 'center' }}
+
+                    className={classes.cardHeader}
+                  />
                   <CardMedia
                     className={classes.cardMedia}
                     image={card.image}
@@ -181,12 +195,29 @@ export default function Album() {
                   <CardContent className={classes.cardContent}>
                     {card.description}
                   </CardContent>
-                  
+
                 </Card>
               </Grid>
             ))}
           </Grid>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={4}>
+              <Option/>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Option
+                handleOpen={handleOpen}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Option/>
+            </Grid>
+          </Grid>
         </Container>
+        <Modal
+          open={open}
+          handleClose={handleClose}
+        />
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
