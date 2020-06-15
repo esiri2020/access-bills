@@ -149,7 +149,6 @@ export default function Album() {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="lg" height="5rem">
-            
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center" >
 

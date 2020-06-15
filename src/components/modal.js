@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -65,9 +65,45 @@ const tv = [
   {id:4,name:'MetroDigital'},
 ]
 
+const Form = () => {
+  const classes = useStyles();
+  const [selectedTv, setTV] = useState('')
+
+  return (
+    <Paper className={classes.paper} elevation={3}>
+      <Typography variant='h4'>
+        Pay TV bills
+      </Typography>
+      <Typography variant='caption'></Typography>
+      <form>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              id="outlined-select-currency"
+              select
+              label="Select Tv service"
+              value={selectedTv}
+              helperText="Please select your cable service provider"
+              variant="outlined"
+              onChange={event => setTV(event.target.value)}>
+              {tv.map((option) => (
+                <MenuItem key={option.id} value={option.name}>
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+        </Grid>
+      </form>
+    </Paper>
+  )
+}
+
 export default function SpringModal(props) {
   const classes = useStyles();
-  const {open, handleClose} = props
+  const {open, handleClose} = props;
+  console.log(open);
 
   return (
     <div>
@@ -76,7 +112,7 @@ export default function SpringModal(props) {
         aria-describedby="spring-modal-description"
         className={classes.modal}
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose()}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -84,34 +120,7 @@ export default function SpringModal(props) {
         }}
       >
         <Fade in={open}>
-          <Paper className={classes.paper} elevation={3}>
-            <Typography variant='h4'>
-              Pay TV bills
-            </Typography>
-            <Typography variant='caption'></Typography>
-            <form>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    id="outlined-select-currency"
-                    select
-                    label="Select Tv service"
-                    // value={currency}
-                    // onChange={handleChange}
-                    helperText="Please select your cable service provider"
-                    variant="outlined"
-                  >
-                    {tv.map((option) => (
-                      <MenuItem key={option.id} value={option.name}>
-                        {option.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-              </Grid>
-            </form>
-          </Paper>
+          <Form/>
         </Fade>
       </Modal>
     </div>
