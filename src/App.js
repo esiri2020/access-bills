@@ -12,8 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CardHeader from '@material-ui/core/CardHeader';
 import Link from '@material-ui/core/Link';
-
 // import App from './App';
+
 
 function Copyright() {
   return (
@@ -112,6 +112,7 @@ export default function Album() {
   return (
     <React.Fragment>
       <CssBaseline />
+      
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
