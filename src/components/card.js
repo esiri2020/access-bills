@@ -28,6 +28,7 @@ const styles = makeStyles({
     // minWidth: 256,
     borderRadius: 16,
     boxShadow: 'none',
+    height: '100%'
   },
   media: {
     backgroundSize: 'contain',
@@ -35,7 +36,7 @@ const styles = makeStyles({
   content:{
     backgroundColor: '#203f52',
     padding: '1rem 1.5rem 1.5rem',
-
+    height: '100%'
   },
   title: {
     fontFamily: 'Keania One',
@@ -44,6 +45,7 @@ const styles = makeStyles({
     textTransform: 'uppercase',
   },
   subtitle: {
+    justifySelf: 'flex-end',
     fontFamily: 'Montserrat',
     color: '#fff',
     opacity: 0.87,
@@ -55,7 +57,7 @@ const styles = makeStyles({
 
 
 export default function OptionCard(props) {
-  const {title, subtitle, handleOpen} = props
+  const {item: {id, title, subtitle, image}, handleOpen} = props
   const classes = styles()
   const mediaStyles = useFourThreeCardMediaStyles();
   const calc = (x, y) => [-(y - window.innerHeight / 2) / 30, -(x - window.innerWidth / 2) / 30, 1.05]
@@ -70,11 +72,11 @@ export default function OptionCard(props) {
       elevation={3}
       style={{ transform: style.xys.interpolate(trans) }}
     >
-      <Card className={classes.card} onClick={handleOpen}>
-        <CardMedia classes={mediaStyles} className={classes.media} image='./images/tv.svg' />
+      <Card className={classes.card} onClick={() => handleOpen(id-1)}>
+        <CardMedia classes={mediaStyles} className={classes.media} image={image} />
         <CardContent className={classes.content}>
           <Typography className={classes.title} variant={'h2'}>
-            TV
+            {title}
           </Typography>
           <Typography className={classes.subtitle}>{subtitle}</Typography>
         </CardContent>
