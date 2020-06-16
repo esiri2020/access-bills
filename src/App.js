@@ -8,6 +8,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 // import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
+import {useTransition, animated} from 'react-spring'
+import {Transition} from 'react-spring/renderprops'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -17,6 +19,10 @@ import Option from './components/card'
 import Modal from './components/modal'
 import Topbar from "./components/Topbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TvForm from './components/forms/tvForm'
+import UtilityForm from './components/forms/utilityForm'
+import MobileForm from './components/forms/mobileForm'
+import VisibilitySensor from './components/visibilitySensor'
 // import App from './App';
 
 
@@ -25,13 +31,15 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © 2020 '}
       <Link color="inherit" href="https://material-ui.com/">
-      AccessTech Bills
+        AccessTech Bills
       </Link>{' '}
 
       {'.'}
     </Typography>
   );
 }
+
+const AnimatedGrid = animated(Grid)
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -90,8 +98,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 const cards = [
   {
     id: 1,
@@ -114,23 +120,52 @@ const cards = [
 
 ];
 
+const services = [
+  {
+    id:1,
+    title: 'Connection Bills',
+    subtitle: 'Buy credit and data',
+    image: './images/bank.svg'
+  },
+  {
+    id:2,
+    title: 'TV Bills',
+    subtitle: "Renew your cable & satellite television subscriptions",
+    image: './images/tv.svg'
+  },
+  {
+    id:3,
+    title: 'Utility Bills',
+    subtitle: 'Pay electric and other utility bills ',
+    image: './images/fire.svg'
+  },
+]
+
 export default function Album() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [form, setForm] = React.useState(1)
   let serviceRef = React.useRef();
+  const forms = [<MobileForm/>,<TvForm/>,<UtilityForm/>]
 
-  const handleOpen = () => {
+  const handleOpen = (n) => {
+    setForm(n);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+  const transitions = useTransition(services, item => item.id, {
+    from: { transform: 'translate3d(0,-40px,0)' },
+    enter: { transform: 'translate3d(0,0px,0)' },
+    leave: { transform: 'translate3d(0,-40px,0)' },
+  })
 
   const scrollTo = (ref) => {
   if (ref /* + other conditions */) {
     // ref.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    window.scrollTo({ behavior: 'smooth', top: ref.current.offsetTop })
+    window.scrollTo({ behavior: 'smooth', block: 'start', top: ref.current.offsetTop })
   }
 }
 
@@ -190,7 +225,7 @@ export default function Album() {
 
             <Grid container spacing={4}>
               {cards.map((card) => (
-                <Grid item key={card.id} xs={12} sm={6} md={4}>
+                <Grid item key={card.id} xs={12} sm={6} md={4} style={{ padding: '16px 16px 0 16px' }}>
                   <Card className={classes.card}>
                     <CardHeader
                       title={card.title}
@@ -214,26 +249,43 @@ export default function Album() {
               ))}
             </Grid>
           </Paper>
-          <Paper ref={serviceRef}>
+          <Paper ref={serviceRef} style={{marginTop:'2em'}}>
+            <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
+              Select A Service
+            </Typography>
             <Grid container spacing={4}>
-              <Grid item xs={12} sm={4}>
-                <Option/>
-              </Grid>
-              <Grid item xs={12} sm={4}>
+              {/* {transitions.map(({ item, props, key }) =>
+                  <AnimatedGrid item xs={12} sm={4} key={key} style={props}>
                 <Option
+                  item={item}
                   handleOpen={handleOpen}
                 />
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Option/>
-              </Grid>
+              </AnimatedGrid>)} */}
+              <VisibilitySensor >
+                {({ isVisible }) => (
+                  <Transition
+                    items={services} keys={item => item.id}
+                    from={{ opacity: 0, transform: 'translate3d(0,-40px,0)' }}
+                    enter={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
+                    leave={{ opacity: 1, transform: 'translate3d(0,-40px,0)' }}>
+                    {item => props =>
+                      <AnimatedGrid item xs={12} sm={4} key={item.id} style={props}>
+                        <Option
+                          item={item}
+                          handleOpen={handleOpen}
+                        />
+                      </AnimatedGrid>
+                    }
+                  </Transition>
+                )}
+              </VisibilitySensor>
             </Grid>
           </Paper>
         </Container>
         <Modal
           open={open}
           handleClose={handleClose}
-        />
+        >{forms[form]}</Modal>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
