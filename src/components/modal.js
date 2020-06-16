@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+// import Paper from '@material-ui/core/Paper'
+// import Typography from '@material-ui/core/Typography';
+// import Grid from '@material-ui/core/Grid';
+// import TextField from '@material-ui/core/TextField';
+// import MenuItem from '@material-ui/core/MenuItem';
 
 import { useSpring, animated } from 'react-spring/web.cjs'; // web.cjs is required for IE 11 support
 import theme from './styles/theme'
@@ -58,58 +58,16 @@ Fade.propTypes = {
   onExited: PropTypes.func,
 };
 
-const tv = [
-  {id:1,name:'DSTV'},
-  {id:2,name:'GoTV'},
-  {id:3,name:'StarTimes'},
-  {id:4,name:'MetroDigital'},
-]
-
-const Form = () => {
-  const classes = useStyles(theme);
-  const [selectedTv, setTV] = useState('')
-
-  return (
-    <Paper className={classes.paper} elevation={3}>
-      <Typography variant='h4'>
-        Pay TV bills
-      </Typography>
-      <Typography variant='caption'></Typography>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="outlined-select-currency"
-              select
-              label="Select Tv service"
-              value={selectedTv}
-              helperText="Please select your cable service provider"
-              variant="outlined"
-              onChange={event => setTV(event.target.value)}>
-              {tv.map((option) => (
-                <MenuItem key={option.id} value={option.name}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-        </Grid>
-      </form>
-    </Paper>
-  )
-}
-
 export default function SpringModal(props) {
   const classes = useStyles(theme);
-  const {open, handleClose} = props;
+  const {open, handleClose, children} = props;
   console.log(open);
 
   return (
     <div>
       <Modal
-        aria-labelledby="spring-modal-title"
-        aria-describedby="spring-modal-description"
+        aria-labelledby="Service form"
+        aria-describedby="service form"
         className={classes.modal}
         open={open}
         onClose={() => handleClose()}
@@ -120,7 +78,7 @@ export default function SpringModal(props) {
         }}
       >
         <Fade in={open}>
-          <Form/>
+          {children}
         </Fade>
       </Modal>
     </div>
