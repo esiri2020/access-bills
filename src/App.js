@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CardHeader from '@material-ui/core/CardHeader';
 import Link from '@material-ui/core/Link';
-import Option from './components/card'
+import Option, {CustomCard}from './components/card'
 import Modal from './components/modal'
 import Topbar from "./components/Topbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +23,7 @@ import TvForm from './components/forms/tvForm'
 import UtilityForm from './components/forms/utilityForm'
 import MobileForm from './components/forms/mobileForm'
 import VisibilitySensor from './components/visibilitySensor'
+import theme from './components/styles/theme'
 // import App from './App';
 
 
@@ -64,8 +65,11 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: '20rem',
-    paddingTop: '10rem'
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
   },
   heroButtons: {
@@ -78,8 +82,31 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
+    // paddingTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100vw',
+    overflowX: 'hidden',
     paddingBottom: theme.spacing(8),
+  },
+  paperGrid: {
+    height: '95vh',
+    width: '100vw',
+    marginBottom:'2em',
+    '@media (max-width: 600px)':{
+      height: 'auto'
+    }
+  },
+  paper: {
+    borderRadius: 16,
+    height: '100%',
+    width: '100%',
+    padding: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   card: {
     height: '100%',
@@ -102,19 +129,19 @@ const cards = [
   {
     id: 1,
     title: 'Step 1',
-    description: ['Select the service you would like to pay for (Disco bill, Internet data, Airtime)'],
+    subtitle: ['Select the service you would like to pay for (Disco bill, Internet data, Airtime)'],
     image: './images/image-1.png'
   },
   {
     id: 2,
     title: 'Step 2',
-    description: ['Input all relevant details in the fields provided including amount to pay'],
+    subtitle: ['Input all relevant details in the fields provided including amount to pay'],
     image: './images/image-1.png'
   },
   {
     id: 3,
     title: 'Step 3',
-    description: ['Make payment online through our payment partner and recieve value.'],
+    subtitle: ['Make payment online through our payment partner and recieve value.'],
     image: './images/image-1.png'
   },
 
@@ -141,11 +168,16 @@ const services = [
   },
 ]
 
+const cardstyles = {
+  margin: '2em 0', width: '100%'
+}
+
 export default function Album() {
-  const classes = useStyles();
+  const classes = useStyles(theme);
   const [open, setOpen] = React.useState(false);
   const [form, setForm] = React.useState(1)
-  let serviceRef = React.useRef();
+  const serviceRef = React.useRef();
+  const cardRef = React.useRef();
   const forms = [<MobileForm/>,<TvForm/>,<UtilityForm/>]
 
   const handleOpen = (n) => {
@@ -172,7 +204,7 @@ export default function Album() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Topbar />
+      <Topbar to={cardRef} handle={scrollTo}/>
       {/* <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
@@ -193,94 +225,83 @@ export default function Album() {
         </Toolbar>
       </AppBar> */}
       <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="lg" height="5rem">
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center" >
+        <Container className={classes.cardGrid} maxWidth="xl">
+          {/* Hero unit */}
+          <Grid className={classes.paperGrid} container spacing={2} justify="center" style={{margin: '60px -20px 24px -20px', height: '90vh'}}>
+            {/* <Paper className={classes.paper} elevation={2}> */}
+            <div className={classes.heroContent}>
+              <Container maxWidth="lg" height="5rem">
+                <div className={classes.heroButtons}>
+                  <Grid container spacing={2} justify="center" >
+                    <Grid item >
+                      <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
+                        select a service to pay for
+                      </Button>
+                    </Grid>
+                    <Grid item>
 
-                <Grid item>
-                  <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
-                    select a service to pay for
-                  </Button>
-                </Grid>
-                <Grid item>
-
-                </Grid>
-              </Grid>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Container>
             </div>
-          </Container>
-        </div>
-        <Container className={classes.cardGrid} maxWidth="md">
+            {/* </Paper> */}
+          </Grid>
           {/* End hero unit */}
-          <Paper>
-            <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
-              How It Works
-            </Typography>
-            <Typography variant="body1" align="center" color="textSecondary" paragraph>
-              Paying for any service online should be easy, convenient and secure.
-              we have curated a 3 step way for you to quickly top up your airtime,
-              renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
-            </Typography>
+          <Grid className={classes.paperGrid} container spacing={2} justify="center" style={cardstyles}>
+            <Paper className={classes.paper} ref={cardRef} elevation={2}>
+              <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
+                How It Works
+              </Typography>
+              <Typography variant="body1" align="center" color="textSecondary" paragraph>
+                Paying for any service online should be easy, convenient and secure.
+                we have curated a 3 step way for you to quickly top up your airtime,
+                renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+              </Typography>
 
-            <Grid container spacing={4}>
-              {cards.map((card) => (
-                <Grid item key={card.id} xs={12} sm={6} md={4} style={{ padding: '16px 16px 0 16px' }}>
-                  <Card className={classes.card}>
-                    <CardHeader
-                      title={card.title}
-
-                      titleTypographyProps={{ align: 'center' }}
-                      subheaderTypographyProps={{ align: 'center' }}
-
-                      className={classes.cardHeader}
-                    />
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={card.image}
-                      title="Image title"
-                    />
-                    <CardContent className={classes.cardContent}>
-                      {card.description}
-                    </CardContent>
-
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Paper>
-          <Paper ref={serviceRef} style={{marginTop:'2em'}}>
-            <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
-              Select A Service
-            </Typography>
-            <Grid container spacing={4}>
-              {/* {transitions.map(({ item, props, key }) =>
+              <Grid container spacing={4} style={{margin: 0, width: '100%'}}>
+                {cards.map((card) => (
+                  <Grid item key={card.id} xs={12} sm={4} md={4} style={{ padding: '16px 16px 0 16px' }}>
+                    <CustomCard item={card}/>
+                  </Grid>
+                ))}
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid className={classes.paperGrid} container spacing={2} justify="center" style={cardstyles}>
+            <Paper className={classes.paper} ref={serviceRef} elevation={2}>
+              <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
+                Select A Service
+              </Typography>
+              <Grid container spacing={4} style={{margin: 0, width: '100%'}}>
+                {/* {transitions.map(({ item, props, key }) =>
                   <AnimatedGrid item xs={12} sm={4} key={key} style={props}>
-                <Option
+                  <Option
                   item={item}
                   handleOpen={handleOpen}
-                />
-              </AnimatedGrid>)} */}
-              <VisibilitySensor >
-                {({ isVisible }) => (
-                  <Transition
-                    items={services} keys={item => item.id}
-                    from={{ opacity: 0, transform: 'translate3d(0,-40px,0)' }}
-                    enter={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
-                    leave={{ opacity: 1, transform: 'translate3d(0,-40px,0)' }}>
-                    {item => props =>
-                      <AnimatedGrid item xs={12} sm={4} key={item.id} style={props}>
-                        <Option
-                          item={item}
-                          handleOpen={handleOpen}
-                        />
-                      </AnimatedGrid>
-                    }
-                  </Transition>
-                )}
-              </VisibilitySensor>
-            </Grid>
-          </Paper>
+                  />
+                </AnimatedGrid>)} */}
+                <VisibilitySensor >
+                  {({ isVisible }) => (
+                    <Transition
+                      items={services} keys={item => item.id}
+                      from={{ opacity: 0, transform: 'translate3d(0,-40px,0)' }}
+                      enter={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
+                      leave={{ opacity: 1, transform: 'translate3d(0,-40px,0)' }}>
+                      {item => props =>
+                        <AnimatedGrid item xs={12} sm={4} key={item.id} style={props}>
+                          <Option
+                            item={item}
+                            handleOpen={handleOpen}
+                          />
+                        </AnimatedGrid>
+                      }
+                    </Transition>
+                  )}
+                </VisibilitySensor>
+              </Grid>
+            </Paper>
+          </Grid>
         </Container>
         <Modal
           open={open}
