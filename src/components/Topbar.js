@@ -22,7 +22,12 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     flexWrap: 'wrap',
   },
-
+  sticky: {
+  position: 'fixed',
+  top: '0',
+  width: '100%',
+  zIndex: '5000'
+}
 }));
 
 
@@ -34,7 +39,7 @@ const Topbar = (props) => {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar className={classes.sticky} color="light" light expand="md">
         <NavbarBrand href="/">Access Tech Bills</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} style={{justifyContent:' flex-end'}} navbar>
@@ -43,13 +48,13 @@ const Topbar = (props) => {
               <NavLink href="/accesstech.com.ng"  variant="button" color="textPrimary" className={classes.link}>HOME</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/"  variant="button" color="textPrimary" className={classes.link}>HOW IT WORKS</NavLink>
+              <NavLink onClick={() => props.handle(props.to)}  variant="button" color="textPrimary" className={classes.link}>HOW IT WORKS</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/"  variant="button" color="textPrimary" className={classes.link}>SELF SUPPORT</NavLink>
-            </NavItem>            
+            </NavItem>
           </Nav>
-          
+
           {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
       </Navbar>
