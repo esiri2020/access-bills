@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import ATApi from './axios.service';
 import theme from '../styles/theme'
 
 const useStyles = makeStyles((theme) => ({
@@ -19,9 +21,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
+    '@media (max-width: 600px)':{
+      width: 'auto'
+    }
   },
   form: {
-    "@media screen and (max-width: 600px)":{}
+    marginTop: theme.spacing(2),
+    // "@media screen and (max-width: 600px)":{}
   }
 }));
 
@@ -30,14 +36,25 @@ const network = [
   {id:2,name:'GLO'},
   {id:3,name:'Airtel'},
   {id:4,name:'9Mobile'},
-  {id:4,name:'Smile'},
-  {id:4,name:'Spectranet'},
+  {id:5,name:'Smile'},
+  {id:6,name:'Spectranet'},
 ]
 
 export default function Form() {
   const classes = useStyles(theme);
   const [selectedNetwork, setNetwork] = useState('')
   const [amount, setAmount] = useState('')
+  const [phoneNumber, setphoneNumber] = useState('')
+
+  const submit = (event) => {
+    event.preventDefault()
+    if (phoneNumber) {
+      ATApi.airtimeInfo(phoneNumber).then(response => {
+        console.log(response.data);
+      }).catch(error => console.log(error))
+    }
+
+  }
 
   return (
     <Paper className={classes.paper} elevation={3}>
@@ -45,7 +62,7 @@ export default function Form() {
         Pay Connectivity bills
       </Typography>
       <Typography variant='caption'></Typography>
-      <form>
+      <form className={classes.form} validate='true' onSubmit={submit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -66,6 +83,22 @@ export default function Form() {
                 </MenuItem>
               ))}
             </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              required
+              name="phoneNumber"
+              id="outlined-required-phoneNumber"
+              label="Phone Number"
+              variant="outlined"
+              value={phoneNumber}
+              onChange={event => setphoneNumber(event.target.value)}
+              placeholder="Enter amount you want to Purchase"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -88,6 +121,9 @@ export default function Form() {
                 }
               }}
             />
+          </Grid>
+          <Grid item xs={6}>
+            <Button fullWidth variant='contained' type='submit'>Submit</Button>
           </Grid>
         </Grid>
       </form>
