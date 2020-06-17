@@ -11,6 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { useFourThreeCardMediaStyles } from '@mui-treasury/styles/cardMedia/fourThree';
 import './styles/card.css'
 
+
 const AnimatedPaper = animated(Paper)
 const styles = makeStyles({
   paper: {
@@ -31,6 +32,9 @@ const styles = makeStyles({
     height: '100%'
   },
   media: {
+    backgroundSize: 'cover',
+  },
+  svgmedia: {
     backgroundSize: 'contain',
   },
   content:{
@@ -62,7 +66,7 @@ export default function OptionCard(props) {
   const mediaStyles = useFourThreeCardMediaStyles();
   const calc = (x, y) => [-(y - window.innerHeight / 2) / 30, -(x - window.innerWidth / 2) / 30, 1.05]
   const trans = (x, y, s) => `perspective(1000px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
-  const [style, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 20, tension: 300, friction: 40, clamp: true } }))
+  const [style, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 40, tension: 300, friction: 40, clamp: true } }))
   return (
     <AnimatedPaper
       // className="card"
@@ -73,7 +77,7 @@ export default function OptionCard(props) {
       style={{ transform: style.xys.interpolate(trans) }}
     >
       <Card className={classes.card} onClick={() => handleOpen(id-1)}>
-        <CardMedia classes={mediaStyles} className={classes.media} image={image} />
+        <CardMedia classes={mediaStyles} className={classes.svgmedia} image={image} />
         <CardContent className={classes.content}>
           <Typography className={classes.title} variant={'h2'}>
             {title}
@@ -82,5 +86,25 @@ export default function OptionCard(props) {
         </CardContent>
       </Card>
     </AnimatedPaper>
+  )
+}
+
+export function CustomCard(props) {
+  const {item: {title, subtitle, image}} = props
+  const classes = styles()
+  const mediaStyles = useFourThreeCardMediaStyles();
+
+  return (
+    <Paper className={classes.paper} elevation={3}>
+      <Card className={classes.card} >
+        <CardMedia classes={mediaStyles} className={classes.media} image={image} />
+        <CardContent className={classes.content}>
+          <Typography className={classes.title} variant={'h2'}>
+            {title}
+          </Typography>
+          <Typography className={classes.subtitle}>{subtitle}</Typography>
+        </CardContent>
+      </Card>
+    </Paper>
   )
 }

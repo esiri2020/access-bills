@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
+    '@media (max-width: 800px)':{
+      width: 'auto'
+    }
   },
 }));
 
@@ -61,7 +64,6 @@ Fade.propTypes = {
 export default function SpringModal(props) {
   const classes = useStyles(theme);
   const {open, handleClose, children} = props;
-  console.log(open);
 
   return (
     <div>
