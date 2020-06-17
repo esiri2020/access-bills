@@ -5,19 +5,30 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     secondary: {
-      main: '#343436'
+      main: '#868e96'
     },
     primary: {
-      main: '#00a218'
+      main: '#007bff'
     }
   },
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
-      '"Palanquin"',
+      'Palanquin',
       'sans-serif'
     ].join(',')
-  }
+  },
+  spacing: factor => `${0.5 * factor}rem`,
+  overrides: {
+    // Style sheet name ⚛️
+    MuiPaper: {
+      // Name of the rule
+      rounded: {
+        // Some CSS
+        borderRadius: '16px',
+      },
+    },
+  },
 });
 
 export default theme;
