@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1.5),
   },
   heroContent: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -72,10 +72,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
 
   },
+  image: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    width: 300,
+    height: 300,
+    marginBottom: '20px'
+
+  },
   heroButtons: {
     marginTop: theme.spacing(0),
-
-
   },
   cardHeader: {
     backgroundColor:
@@ -132,6 +142,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
 }));
+
 
 const cards = [
   {
@@ -234,22 +245,24 @@ export default function Album() {
           </Toolbar>
         </AppBar> */}
         <main>
-          <Container className={classes.cardGrid} maxWidth="lg">
+          <Container className={classes.cardGrid} maxWidth="xl">
             {/* Hero unit */}
             <Grid className={classes.paperGrid} container spacing={2} justify="center" style={{margin: '60px -20px 24px -20px', height: '90vh'}}>
               {/* <Paper className={classes.paper} elevation={2}> */}
               <div className={classes.heroContent}>
                 <Container maxWidth="lg" height="5rem">
+                  <Grid container spacing={2} justify="center" >
+                    <Grid item className={classes.image} />
+                  </Grid>
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center" >
+
                       <Grid item >
                         <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
                           select a service to pay for
                         </Button>
                       </Grid>
-                      <Grid item>
 
-                      </Grid>
                     </Grid>
                   </div>
                 </Container>
@@ -257,8 +270,8 @@ export default function Album() {
               {/* </Paper> */}
             </Grid>
             {/* End hero unit */}
-            <Grid className={classes.paperGrid} ref={cardRef} container spacing={2} justify="center" style={cardstyles}>
-              {/* <Paper className={classes.paper}  elevation={2}> */}
+            <Grid className={classes.paperGrid} container spacing={2} justify="center" style={cardstyles}>
+              {/* <Paper className={classes.paper} ref={cardRef} elevation={2}> */}
               <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
                 How It Works
               </Typography>
@@ -274,7 +287,7 @@ export default function Album() {
                     <CustomCard item={card}/>
                   </Grid>
                 ))}
-              </Grid>
+                </Grid>
               {/* </Paper> */}
             </Grid>
             <Grid className={classes.paperGrid} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
