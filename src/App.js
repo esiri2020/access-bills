@@ -149,19 +149,19 @@ const cards = [
     id: 1,
     title: 'Step 1',
     subtitle: ['Select the service you would like to pay for (Disco bill, Internet data, Airtime)'],
-    image: './images/image-1.png'
+    image: './images/select a service step 1.svg'
   },
   {
     id: 2,
     title: 'Step 2',
     subtitle: ['Input all relevant details in the fields provided including amount to pay'],
-    image: './images/image-1.png'
+    image: './images/input all fields step 2.svg'
   },
   {
     id: 3,
     title: 'Step 3',
     subtitle: ['Make payment online through our payment partner and recieve value.'],
-    image: './images/image-1.png'
+    image: './images/pay step 3.svg'
   },
 
 ];
