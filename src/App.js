@@ -287,7 +287,7 @@ export default function Album() {
                     <CustomCard item={card}/>
                   </Grid>
                 ))}
-                </Grid>
+              </Grid>
               {/* </Paper> */}
             </Grid>
             <Grid className={classes.paperGrid} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
