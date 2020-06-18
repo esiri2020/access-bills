@@ -15,6 +15,7 @@ const theme = createMuiTheme({
     // Use the system font instead of the default Roboto font.
     fontFamily: [
       'Rubik',
+      'Palanquin',
       'sans-serif'
     ].join(',')
   },
