@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1.5),
   },
   heroContent: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -72,10 +72,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
 
   },
+  image: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    width: 300,
+    height: 300,
+    marginBottom: '20px'
+  
+  },
   heroButtons: {
     marginTop: theme.spacing(0),
-
-
   },
   cardHeader: {
     backgroundColor:
@@ -124,6 +134,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
 }));
+
 
 const cards = [
   {
@@ -231,16 +242,18 @@ export default function Album() {
             {/* <Paper className={classes.paper} elevation={2}> */}
             <div className={classes.heroContent}>
               <Container maxWidth="lg" height="5rem">
+              <Grid container spacing={2} justify="center" >
+              <Grid item className={classes.image} />
+              </Grid>
                 <div className={classes.heroButtons}>
                   <Grid container spacing={2} justify="center" >
+                    
                     <Grid item >
                       <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
                         select a service to pay for
                       </Button>
                     </Grid>
-                    <Grid item>
-
-                    </Grid>
+                    
                   </Grid>
                 </div>
               </Container>
