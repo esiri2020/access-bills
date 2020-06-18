@@ -245,7 +245,7 @@ export default function Album() {
           </Toolbar>
         </AppBar> */}
         <main>
-          <Container className={classes.cardGrid} maxWidth="xl">
+          <Container className={classes.cardGrid} maxWidth="lg">
             {/* Hero unit */}
             <Grid className={classes.paperGrid} container spacing={2} justify="center" style={{margin: '60px -20px 24px -20px', height: '90vh'}}>
               {/* <Paper className={classes.paper} elevation={2}> */}
@@ -270,8 +270,8 @@ export default function Album() {
               {/* </Paper> */}
             </Grid>
             {/* End hero unit */}
-            <Grid className={classes.paperGrid} container spacing={2} justify="center" style={cardstyles}>
-              {/* <Paper className={classes.paper} ref={cardRef} elevation={2}> */}
+            <Grid className={classes.paperGrid} ref={cardRef} container spacing={2} justify="center" style={cardstyles}>
+              {/* <Paper className={classes.paper}  elevation={2}> */}
               <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
                 How It Works
               </Typography>
