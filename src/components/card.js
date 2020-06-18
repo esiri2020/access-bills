@@ -32,7 +32,7 @@ const styles = makeStyles({
     height: '100%'
   },
   media: {
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
   },
   svgmedia: {
     backgroundSize: 'contain',
