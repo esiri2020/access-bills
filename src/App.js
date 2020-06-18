@@ -245,7 +245,7 @@ export default function Album() {
           </Toolbar>
         </AppBar> */}
         <main>
-          <Container className={classes.cardGrid} maxWidth="xl">
+          <Container className={classes.cardGrid} maxWidth="lg">
             {/* Hero unit */}
             <Grid className={classes.paperGrid} container spacing={2} justify="center" style={{margin: '60px -20px 24px -20px', height: '90vh'}}>
               {/* <Paper className={classes.paper} elevation={2}> */}
