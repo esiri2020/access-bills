@@ -250,23 +250,31 @@ export default function Album() {
             <Grid className={classes.paperGrid} container spacing={2} justify="center" style={{margin: '60px -20px 24px -20px', height: '90vh'}}>
               {/* <Paper className={classes.paper} elevation={2}> */}
               <div className={classes.heroContent}>
-                <Container maxWidth="lg" height="5rem">
+              <Container maxWidth="lg" height="5rem">
+              <Grid container spacing={2} justify="center" >
+             
+              </Grid>
+                <div className={classes.heroButtons}>
                   <Grid container spacing={2} justify="center" >
-                    <Grid item className={classes.image} />
-                  </Grid>
-                  <div className={classes.heroButtons}>
-                    <Grid container spacing={2} justify="center" >
-
-                      <Grid item >
-                        <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
-                          select a service to pay for
-                        </Button>
-                      </Grid>
-
+                    
+                    <Grid item  xs={6} >
+                    <Typography component="h4" variant="h4" align="left" color="textPrimary" gutterBottom>
+                        How It Works
+                      </Typography>
+                      <Typography variant="body1" align="left" color="textSecondary" paragraph>
+                        Paying for any service online should be easy, convenient and secure.
+                        we have curated a 3 step way for you to quickly top up your airtime,
+                        renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+                      </Typography>
+                      <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
+                        select a service to pay for
+                      </Button>
                     </Grid>
-                  </div>
-                </Container>
-              </div>
+                     <Grid  xs={6} item className={classes.image} />
+                  </Grid>
+                </div>
+              </Container>
+            </div>
               {/* </Paper> */}
             </Grid>
             {/* End hero unit */}
