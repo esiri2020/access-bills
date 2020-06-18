@@ -73,11 +73,11 @@ const useStyles = makeStyles((theme) => ({
 
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(./images/unifying-the-vs-eco-system.svg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundPosition: 'center',
     width: 300,
     height: 300,
@@ -252,11 +252,11 @@ export default function Album() {
               <div className={classes.heroContent}>
               <Container maxWidth="lg" height="5rem">
               <Grid container spacing={2} justify="center" >
-             
+
               </Grid>
                 <div className={classes.heroButtons}>
                   <Grid container spacing={2} justify="center" >
-                    
+
                     <Grid item  xs={6} >
                     <Typography component="h4" variant="h4" align="left" color="textPrimary" gutterBottom>
                         How It Works
