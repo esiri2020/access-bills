@@ -22,7 +22,7 @@ const styles = makeStyles({
     transition: 'box-shadow 0.5s',
     justifyContent: 'center',
     '&:hover': {
-      boxShadow: '0px 30px 100px -10px rgba(0, 0, 0, 0.4)'
+      boxShadow: '0px 15px 30px -10px rgba(0, 0, 0, 0.4)'
     }
   },
   card: {
@@ -64,7 +64,7 @@ export default function OptionCard(props) {
   const {item: {id, title, subtitle, image}, handleOpen} = props
   const classes = styles()
   const mediaStyles = useFourThreeCardMediaStyles();
-  const calc = (x, y) => [-(y - window.innerHeight / 2) / 30, -(x - window.innerWidth / 2) / 30, 1.05]
+  const calc = (x, y) => [-(y - window.innerHeight / 2) / 1000, -(x - window.innerWidth / 2) / 1000, 1.01]
   const trans = (x, y, s) => `perspective(1000px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
   const [style, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 40, tension: 300, friction: 40, clamp: true } }))
   return (
