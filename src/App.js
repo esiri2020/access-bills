@@ -21,7 +21,7 @@ import Topbar from "./components/Topbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TvForm from './components/forms/tvForm'
 import UtilityForm from './components/forms/utilityForm'
-import MobileForm from './components/forms/mobileForm'
+import MobileForm from './components/forms/nmf'
 // import VisibilitySensor from './components/visibilitySensor'
 import theme from './components/styles/theme'
 // import App from './App';
