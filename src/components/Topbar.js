@@ -14,6 +14,7 @@ import {
   // DropdownItem,
   // NavbarText
 } from 'reactstrap';
+import theme from './styles/theme'
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -26,26 +27,29 @@ const useStyles = makeStyles((theme) => ({
   position: 'fixed',
   top: '0',
   width: '100%',
-  zIndex: '5000'
+  zIndex: '5000',
+  [theme.breakpoints.up("lg")]: {
+    width: '90%'
+  }
 }
 }));
 
 
 const Topbar = (props) => {
-  const classes = useStyles();
+  const classes = useStyles(theme);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div style={{display: 'contents', padding: '0px 8px'}}>
       <Navbar className={classes.sticky} color="light" light expand="md">
         <NavbarBrand href="/">Access Tech Bills</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} style={{justifyContent:' flex-end'}} navbar>
           <Nav className={classes.menu} navbar>
             <NavItem>
-              <NavLink href="/accesstech.com.ng"  variant="button" color="textPrimary" className={classes.link}>HOME</NavLink>
+              <NavLink href="https://accesstech.com.ng"  variant="button" color="textPrimary" className={classes.link}>HOME</NavLink>
             </NavItem>
             <NavItem>
               <NavLink onClick={() => props.handle(props.to)}  variant="button" color="textPrimary" className={classes.link}>HOW IT WORKS</NavLink>

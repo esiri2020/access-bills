@@ -64,7 +64,7 @@ export default function OptionCard(props) {
   const {item: {id, title, subtitle, image}, handleOpen} = props
   const classes = styles()
   const mediaStyles = useFourThreeCardMediaStyles();
-  const calc = (x, y) => [-(y - window.innerHeight / 2) / 30, -(x - window.innerWidth / 2) / 30, 1.05]
+  const calc = (x, y) => [-(y - window.innerHeight / 2) / 200, -(x - window.innerWidth / 2) / 200, 1.01]
   const trans = (x, y, s) => `perspective(1000px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
   const [style, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 40, tension: 300, friction: 40, clamp: true } }))
   return (
