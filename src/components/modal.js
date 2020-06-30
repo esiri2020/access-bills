@@ -75,6 +75,7 @@ export default function SpringModal(props) {
         onClose={() => handleClose()}
         closeAfterTransition
         BackdropComponent={Backdrop}
+        disableEnforceFocus={true}
         BackdropProps={{
           timeout: 500,
         }}
