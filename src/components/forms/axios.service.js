@@ -42,6 +42,10 @@ class AccessTechApi {
     return this.api.get(`/airtime/info/${phoneNumber}`, this.headers())
   }
 
+  dataInfo(phoneNumber) {
+    return this.api.get(`/data/info/${phoneNumber}`, this.headers())
+  }
+
 }
 
 export default new AccessTechApi(email, password, axios)
