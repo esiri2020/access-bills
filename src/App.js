@@ -258,30 +258,16 @@ export default function Album() {
                 <Container maxWidth="lg" height="5rem">
                   <Grid container spacing={2} justify="center" >
 
-                    <Grid item  xs={6} >
-                    <Typography component="h4" variant="h4" align="left" color="textPrimary" gutterBottom>
-                    Unifying the VAS ecosystem
-                      </Typography>
-                      <Typography variant="body1" align="left" color="textSecondary" paragraph>
-                      AccessTech is a VAS Oriented company located in Lagos-Nigeria, servicing clients across Nigeria and the world.
-                      </Typography>
-                      <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
-                        select a service to pay for
-                      </Button>
-                    </Grid>
-                     <Grid  xs={6} item className={classes.image} />
                   </Grid>
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center" >
 
                       <Grid item  xs={12} sm={6}>
                         <Typography component="h4" variant="h4" align="left" color="textPrimary" gutterBottom>
-                          How It Works
+                        Unifying the VAS ecosystem
                         </Typography>
                         <Typography variant="body1" align="left" color="textSecondary" paragraph>
-                          Paying for any service online should be easy, convenient and secure.
-                          we have curated a 3 step way for you to quickly top up your airtime,
-                          renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+                        AccessTech is a VAS Oriented company located in Lagos-Nigeria, servicing clients across Nigeria and the world.
                         </Typography>
                         <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
                           select a service to pay for

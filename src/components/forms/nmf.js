@@ -266,9 +266,9 @@ export default function Form() {
             shrink: true,
           }}>
           {array.map((item) => (
-            <MenuItem key={item.product_id} value={item.denomination}>
+            <MenuItem key={item.product_id} value={item.face_value}>
               <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
-                <div>{item.product_id.split('-')[3]}</div><div>{`₦${item.denomination}`}</div>
+                <div>{item.product_id.split('-')[3]}</div><div>{`₦${item.face_value}`}</div>
               </div>
 
             </MenuItem>
