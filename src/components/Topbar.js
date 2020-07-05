@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
+  // NavbarBrand,
   Nav,
   NavItem,
   NavLink,
@@ -14,7 +15,7 @@ import {
   // DropdownItem,
   // NavbarText
 } from 'reactstrap';
-import theme from './styles/theme'
+import theme from './styles/theme';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -31,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up("lg")]: {
     width: '90%'
   }
-}
+},
+Logo: {
+  height: '40px',
+    width: '40px',
+  
+},
 }));
 
 
@@ -44,7 +50,9 @@ const Topbar = (props) => {
   return (
     <div style={{display: 'contents', padding: '0px 8px'}}>
       <Navbar className={classes.sticky} color="light" light expand="md">
-        <NavbarBrand href="/">Access Tech Bills</NavbarBrand>
+      <Toolbar>
+        <img src="./images/act-logo.png" alt="logo" className={classes.logo} />
+      </Toolbar>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} style={{justifyContent:' flex-end'}} navbar>
           <Nav className={classes.menu} navbar>
