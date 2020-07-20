@@ -27,7 +27,7 @@ const styles = makeStyles({
   },
   card: {
     // minWidth: 256,
-    borderRadius: 16,
+    borderRadius: 1,
     boxShadow: 'none',
     height: '100%'
   },
@@ -38,24 +38,25 @@ const styles = makeStyles({
     backgroundSize: 'contain',
   },
   content:{
-    backgroundColor: '#203f52',
+    backgroundColor: '#fff',
     padding: '1rem 1.5rem 1.5rem',
     height: '100%'
   },
   title: {
     // fontFamily: 'Keania One',
-    fontSize: '2rem',
-    color: '#fff',
+    fontSize: '1.2rem',
+    fontWeight: '500',
+    color: '#203f52',
     textTransform: 'uppercase',
   },
   subtitle: {
     justifySelf: 'flex-end',
     // fontFamily: 'Montserrat',
-    color: '#fff',
+    color: '#203f52',
     opacity: 0.87,
     marginTop: '2rem',
-    fontWeight: 500,
-    fontSize: 14,
+    fontWeight: 300,
+    fontSize: 16,
   },
 })
 

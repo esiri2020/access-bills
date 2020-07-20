@@ -61,12 +61,12 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
-    backgroundColor:
+    backgroundColor: 
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100%',
-    width: '100%',
+    width: '90%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -172,21 +172,21 @@ const cards = [
 const services = [
   {
     id:1,
-    title: 'Connection Bills',
+    title: 'Airtime and Data',
     subtitle: 'Buy credit and data',
-    image: './images/connection-bills.png'
+    image: './images/step-1.svg'
   },
   {
     id:2,
-    title: 'TV Bills',
+    title: 'TV and Internet',
     subtitle: "Renew your cable & satellite television subscriptions",
-    image: './images/tv-bills.png'
+    image: './images/step-2_3.png'
   },
   {
     id:3,
-    title: 'Utility Bills',
+    title: 'Electricity',
     subtitle: 'Pay electric and other utility bills ',
-    image: './images/utility-bills.png'
+    image: './images/step-3_1.png'
   },
 ]
 
@@ -230,25 +230,6 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="lg">
           <Topbar to={cardRef} handle={scrollTo}/>
         </Container>
-        {/* <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-          <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          Access Tech Bills
-          </Typography>
-          <nav>
-          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-          Home
-          </Link>
-          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-          How it works
-          </Link>
-          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-          Self Support
-          </Link>
-          </nav>
-
-          </Toolbar>
-        </AppBar> */}
         <main>
           <Container className={classes.cardGrid} maxWidth="lg">
             {/* Hero unit */}
@@ -257,11 +238,9 @@ export default function Album() {
               <div className={classes.heroContent}>
                 <Container maxWidth="lg" height="5rem">
                   <Grid container spacing={2} justify="center" >
-
                   </Grid>
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center" >
-
                       <Grid item  xs={12} sm={6}>
                         <Typography component="h4" variant="h4" align="left" color="textPrimary" gutterBottom>
                         Unifying the VAS ecosystem
@@ -281,8 +260,9 @@ export default function Album() {
               {/* </Paper> */}
             </Grid>
             {/* End hero unit */}
-            <Grid className={classes.paperGrid} ref={cardRef} container spacing={2} justify="center" style={cardstyles}>
+            <Grid className={classes.paperGrid} ref={cardRef} container spacing={2}  justify="center" style={cardstyles}>
               {/* <Paper className={classes.paper}  elevation={2}> */}
+              <Container maxWidth='md'>
               <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
                 How It Works
               </Typography>
@@ -291,7 +271,7 @@ export default function Album() {
                 we have curated a 3 step way for you to quickly top up your airtime,
                 renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
               </Typography>
-
+              </Container>
               <Grid container spacing={4} className={classes.cardsGrid} style={{margin: 0, width: '100%'}}>
                 {cards.map((card) => (
                   <Grid item key={card.id} xs={12} sm={4} md={4} style={{ padding: '16px 16px 0 16px' }}>
@@ -303,7 +283,7 @@ export default function Album() {
             </Grid>
             <Grid className={classes.paperGrid} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
               {/* <Paper className={classes.paper}  elevation={2}> */}
-              <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
+              <Typography component="h4" variant="h4" align="center" color="textPrimary" style={{marginTop:'100px'}} gutterBottom>
                 Select A Service
               </Typography>
               <Grid container spacing={4} className={classes.cardsGrid} style={{margin: 0, width: '100%'}}>

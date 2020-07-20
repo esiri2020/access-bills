@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    // border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
@@ -353,10 +353,10 @@ export default function Form() {
     const RmPaymentEngine = window.RmPaymentEngine
     var paymentEngine = RmPaymentEngine.init({
       key: key,
-      customerId: "140700251",
-      firstName: "Lisa",
-      lastName: "Spark",
-      email: "muveapi@gmail.com",
+      customerId: "",
+      firstName: "",
+      lastName: "",
+      email: "",
       narration: "Payment Description",
       amount: type === 'Airtime' ? amount : dataAmount,
       onSuccess: function (response) {
@@ -393,7 +393,7 @@ export default function Form() {
             {transitions.map(({ item, key, props }) => (
               <AnimatedGrid key={item.id} style={{...props}} item xs={item.xs}>
                   {item.Field(formProps)}
-                </AnimatedGrid>
+              </AnimatedGrid>
             ))}
           </AnimatedGrid>
 
