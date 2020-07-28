@@ -20,6 +20,11 @@ import theme from './styles/theme';
 const useStyles = makeStyles((theme) => ({
   link: {
     margin: theme.spacing(1, 1.5),
+    cursor: 'pointer',
+    fontSize: '12px',
+    fontWeight: '500',
+    color: '#203f52',
+    fontFamily: 'Rubik',
   },
   menu: {
     flexWrap: 'wrap',
@@ -61,7 +66,7 @@ const Topbar = (props) => {
               <NavLink href="https://accesstech.com.ng"  variant="button" color="textPrimary" className={classes.link}>HOME</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink onClick={() => props.handle(props.to)}  variant="button" color="textPrimary" className={classes.link}>HOW IT WORKS</NavLink>
+              <NavLink onClick={() => props.handle(props.to)}  variant="button" color="textPrimary" className={classes.link}> HOW IT WORKS </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/"  variant="button" color="textPrimary" className={classes.link}>SELF SUPPORT</NavLink>

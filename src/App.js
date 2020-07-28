@@ -242,13 +242,13 @@ export default function Album() {
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center" >
                       <Grid item  xs={12} sm={6}>
-                        <Typography component="h4" variant="h4" align="left" color="textPrimary" gutterBottom>
+                        <Typography component="h4" style= {{    fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}} variant="h4" align="left" gutterBottom>
                         Unifying the VAS ecosystem
                         </Typography>
-                        <Typography variant="body1" align="left" color="textSecondary" paragraph>
+                        <Typography variant="body1" align="left" style= {{    fontSize: '12px', fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}  paragraph>
                         AccessTech is a VAS Oriented company located in Lagos-Nigeria, servicing clients across Nigeria and the world.
                         </Typography>
-                        <Button  variant="contained" color="primary" onClick={() => scrollTo(serviceRef)}>
+                        <Button  variant="contained" style={{backgroundColor:"#24b47e", color: '#203f52'}} onClick={() => scrollTo(serviceRef)}>
                           select a service to pay for
                         </Button>
                       </Grid>
@@ -263,7 +263,7 @@ export default function Album() {
             <Grid className={classes.paperGrid} ref={cardRef} container spacing={2}  justify="center" style={cardstyles}>
               {/* <Paper className={classes.paper}  elevation={2}> */}
               <Container maxWidth='md'>
-              <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
+              <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom style= {{   fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
                 How It Works
               </Typography>
               <Typography variant="body1" align="center" color="textSecondary" paragraph>
@@ -283,7 +283,7 @@ export default function Album() {
             </Grid>
             <Grid className={classes.paperGrid} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
               {/* <Paper className={classes.paper}  elevation={2}> */}
-              <Typography component="h4" variant="h4" align="center" color="textPrimary" style={{marginTop:'100px'}} gutterBottom>
+              <Typography component="h4" variant="h4" align="center" color="textPrimary"  gutterBottom style= {{marginTop:'100px',  fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
                 Select A Service
               </Typography>
               <Grid container spacing={4} className={classes.cardsGrid} style={{margin: 0, width: '100%'}}>

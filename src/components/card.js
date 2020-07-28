@@ -96,7 +96,7 @@ export function CustomCard(props) {
   const mediaStyles = useFourThreeCardMediaStyles();
 
   return (
-    <Paper className={classes.paper} elevation={3}>
+    
       <Card className={classes.card} >
         <CardMedia classes={mediaStyles} className={classes.media} image={image} />
         <CardContent className={classes.content}>
@@ -106,6 +106,6 @@ export function CustomCard(props) {
           <Typography className={classes.subtitle}>{subtitle}</Typography>
         </CardContent>
       </Card>
-    </Paper>
+
   )
 }
