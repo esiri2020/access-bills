@@ -11,7 +11,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import {useTransition, useSpring, useChain, config , animated} from 'react-spring'
 import ATApi from './axios.service';
+import MuiPhoneNumber from 'material-ui-phone-number'
 import theme from '../styles/theme'
+import Close from '../closeButton'
 
 const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
+    position: 'relative',
     backgroundColor: theme.palette.background.paper,
     // border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -49,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Form() {
+export default function Form(props) {
   const classes = useStyles(theme);
   const [data, setData] = useState({})
   const [amount, setAmount] = useState('')
@@ -59,13 +62,15 @@ export default function Form() {
   const [loading, setLoading] = useState(false)
   const [validity, _setValidity] = useState('')
   const [dataAmount, setdataAmount] = useState('')
-  const [fields, setFields] = useState([])
+  const [fields, setFields] = useState([]);
+
   const setphoneNumber = fields => event => {
-    _setphoneNumber(event.target.value);
-    if (event.target.value.length === 13 && event.target.value.startsWith('234')) {
+    _setphoneNumber(event);
+    if (event.length === 14 && event.startsWith('+234')) {
       setLoading(true)
+      const number = event.slice(1)
       if (type === 'Airtime'){
-      ATApi.airtimeInfo(event.target.value).then(response => {
+      ATApi.airtimeInfo(number).then(response => {
         console.log(response.data);
         setData(response.data)
         setLoading(false)
@@ -80,7 +85,7 @@ export default function Form() {
       })
       }
       else if (type === 'Data') {
-        ATApi.dataInfo(event.target.value).then(response => {
+        ATApi.dataInfo(number).then(response => {
           console.log(response.data);
           setData(response.data)
           setLoading(false)
@@ -109,7 +114,8 @@ export default function Form() {
     xs: 12,
     Field: ({phoneNumber, setphoneNumber, loading, fields}) => {
       return (
-        <TextField
+        <MuiPhoneNumber
+          defaultCountry={'ng'}
           fullWidth
           required
           name="phoneNumber"
@@ -375,6 +381,7 @@ export default function Form() {
 
   const submit = (event) => {
     event.preventDefault()
+    props.close()
     makePayment(amount, dataAmount)
   }
 
@@ -382,6 +389,7 @@ export default function Form() {
 
   return (
     <Paper className={classes.paper} elevation={3}>
+      <Close close={props.close}/>
       <Typography variant='h4'>
         {type ? `Buy ${type}` : 'Pay Connectivity bills'}
       </Typography>
@@ -392,7 +400,7 @@ export default function Form() {
 
             {transitions.map(({ item, key, props }) => (
               <AnimatedGrid key={item.id} style={{...props}} item xs={item.xs}>
-                  {item.Field(formProps)}
+                {item.Field(formProps)}
               </AnimatedGrid>
             ))}
           </AnimatedGrid>
@@ -402,3 +410,20 @@ export default function Form() {
     </Paper>
   )
 }
+{/* <TextField
+  fullWidth
+  required
+  name="phoneNumber"
+  id="outlined-required-phoneNumber"
+  label="Phone Number"
+  variant="outlined"
+  value={phoneNumber}
+  onChange={setphoneNumber(fields)}
+  placeholder="Enter your phone number"
+  helperText="Must be in this format 2348012345678"
+  InputLabelProps={{
+    shrink: true,
+  }}
+  InputProps={{
+    endAdornment: loading && <InputAdornment position="end"><CircularProgress size={24}/></InputAdornment>,
+  }}/>  */}
