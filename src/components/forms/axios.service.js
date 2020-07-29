@@ -10,8 +10,9 @@ class AccessTechApi {
     this.password = password
     this.source = axios.CancelToken.source
     this.api = axios.create({
-      baseURL: "http://accessbills-proxy.herokuapp.com",
+      // baseURL: "http://accessbills-proxy.herokuapp.com",
       // baseURL: "http://localhost:3001",
+      baseURL: "http://104.200.21.110:8181/api",
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json"
@@ -35,15 +36,23 @@ class AccessTechApi {
 
   async authenticate() {
     const data = {username: this.email, password: this.password}
-     return this.api.post('/auth', JSON.stringify(data))
+     return this.api.post('/merchant/auth', JSON.stringify(data))
   }
 
-  airtimeInfo(phoneNumber) {
+  async airtimeInfo(phoneNumber) {
     return this.api.get(`/airtime/info/${phoneNumber}`, this.headers())
   }
 
-  dataInfo(phoneNumber) {
+  async dataInfo(phoneNumber) {
     return this.api.get(`/data/info/${phoneNumber}`, this.headers())
+  }
+
+  async utilityInfo() {
+    return this.api.get('/utility/info', this.headers())
+  }
+
+  async utilityTopUp(data) {
+    return this.api.get('/utility/topup', JSON.stringify(data), this.headers())
   }
 
 }
