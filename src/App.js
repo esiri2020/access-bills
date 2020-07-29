@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
-    backgroundColor: 
+    backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -200,7 +200,6 @@ export default function Album() {
   const [form, setForm] = React.useState(1)
   const serviceRef = React.useRef();
   const cardRef = React.useRef();
-  const forms = [<MobileForm/>,<TvForm/>,<UtilityForm/>]
 
   const handleOpen = (n) => {
     setForm(n);
@@ -210,6 +209,8 @@ export default function Album() {
   const handleClose = () => {
     setOpen(false);
   };
+  const forms = [<MobileForm close={handleClose}/>,<TvForm close={handleClose}/>,<UtilityForm close={handleClose}/>]
+
   const transitions = useTransition(services, item => item.id, {
     from: { transform: 'translate3d(0,-40px,0)' },
     enter: { transform: 'translate3d(0,0px,0)' },
@@ -243,10 +244,10 @@ export default function Album() {
                     <Grid container spacing={2} justify="center" >
                       <Grid item  xs={12} sm={6}>
                         <Typography component="h4" style= {{    fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}} variant="h4" align="left" gutterBottom>
-                        Unifying the VAS ecosystem
+                          Unifying the VAS ecosystem
                         </Typography>
                         <Typography variant="body1" align="left" style= {{    fontSize: '12px', fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}  paragraph>
-                        AccessTech is a VAS Oriented company located in Lagos-Nigeria, servicing clients across Nigeria and the world.
+                          AccessTech is a VAS Oriented company located in Lagos-Nigeria, servicing clients across Nigeria and the world.
                         </Typography>
                         <Button  variant="contained" style={{backgroundColor:"#24b47e", color: '#203f52'}} onClick={() => scrollTo(serviceRef)}>
                           select a service to pay for
@@ -255,22 +256,22 @@ export default function Album() {
                       <Grid  xs={null} sm={6} item className={classes.image} />
                     </Grid>
                   </div>
-              </Container>
-            </div>
+                </Container>
+              </div>
               {/* </Paper> */}
             </Grid>
             {/* End hero unit */}
             <Grid className={classes.paperGrid} ref={cardRef} container spacing={2}  justify="center" style={cardstyles}>
               {/* <Paper className={classes.paper}  elevation={2}> */}
               <Container maxWidth='md'>
-              <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom style= {{   fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
-                How It Works
-              </Typography>
-              <Typography variant="body1" align="center" color="textSecondary" paragraph>
-                Paying for any service online should be easy, convenient and secure.
-                we have curated a 3 step way for you to quickly top up your airtime,
-                renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
-              </Typography>
+                <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom style= {{   fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
+                  How It Works
+                </Typography>
+                <Typography variant="body1" align="center" color="textSecondary" paragraph>
+                  Paying for any service online should be easy, convenient and secure.
+                  we have curated a 3 step way for you to quickly top up your airtime,
+                  renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+                </Typography>
               </Container>
               <Grid container spacing={4} className={classes.cardsGrid} style={{margin: 0, width: '100%'}}>
                 {cards.map((card) => (

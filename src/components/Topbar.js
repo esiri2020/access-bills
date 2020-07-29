@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   position: 'fixed',
   top: '0',
   width: '100%',
-  zIndex: '5000',
+  zIndex: '50',
   // [theme.breakpoints.up("lg")]: {
   //   width: '90%'
   // }
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 Logo: {
   height: '40px',
     width: '40px',
-  
+
 },
 }));
 
@@ -55,7 +55,7 @@ const Topbar = (props) => {
   return (
     <div style={{display: 'contents', padding: '0px 20px'}}>
       <Navbar className={classes.sticky} color="light" light expand="md">
-        
+
       <Toolbar>
         <img src="./images/act-logo.png" alt="logo" className={classes.logo} />
       </Toolbar>
@@ -71,12 +71,12 @@ const Topbar = (props) => {
             <NavItem>
               <NavLink href="/"  variant="button" color="textPrimary" className={classes.link}>SELF SUPPORT</NavLink>
             </NavItem>
-           
+
           </Nav>
 
           {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
-       
+
       </Navbar>
     </div>
   );
