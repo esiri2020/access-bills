@@ -52,7 +52,15 @@ class AccessTechApi {
   }
 
   async utilityTopUp(data) {
-    return this.api.get('/utility/topup', JSON.stringify(data), this.headers())
+    return this.api.post('/utility/topup', JSON.stringify(data), this.headers())
+  }
+
+  async cableInfo(number) {
+    return this.api.get(`/cable/smartcard/info/${number}`, this.headers())
+  }
+
+  async cableTopup(number, data) {
+    return this.api.post(`/cable/smartcard/topup/${number}`, JSON.stringify(data), this.headers())
   }
 
 }
