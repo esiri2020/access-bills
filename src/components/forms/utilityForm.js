@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ATApi from './axios.service';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useTransition, useSpring, useChain, config , animated} from 'react-spring'
+// import {useTransition, useSpring, useChain, config , animated} from 'react-spring'
 import Close from '../closeButton'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -17,7 +17,28 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const AnimatedGrid = animated(Grid)
+const res = {
+    "status": 201,
+    "message": "Operation Successful, Recharge created, Reference : 394c86e0-d1af-11ea-bc61-67ae0cf09d72",
+    "reference": "394c86e0-d1af-11ea-bc61-67ae0cf09d72",
+    "code": "RECHARGE_COMPLETE",
+    "paid_amount": 497.475,
+    "paid_currency": "NGN",
+    "topup_amount": 500,
+    "topup_currency": "NGN",
+    "target": "54181237451",
+    "product_id": "BPE-NGIE-OR",
+    "time": "2020-07-29T15:22:03.581Z",
+    "country": "Nigeria",
+    "operator_name": "Ikeja Electric",
+    "completed_in": 14450,
+    "customer_reference": null,
+    "pin_based": true,
+    "pin_code": "5745-0465-0610-4542-8157",
+    "pin_option1": "5745-0465-0610-4542-8157"
+}
+
+// const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -37,13 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const disco = [
-  {id:1,name:'EKODC'},
-  {id:2,name:'PHED'},
-  {id:3,name:'KEDC'},
-  {id:4,name:'AEDC'},
-]
-
 export default function Form(props) {
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -52,19 +66,19 @@ export default function Form(props) {
   const [loading, setLoading] = useState(true)
   const [meter, setMeter] = useState('')
   const [data, setData] = useState(null)
-  const [value, setValue] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState('');
+  const [value, setValue] = useState(true);
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
 
   const handleRadioChange = (event) => {
-    setValue(event.target.value);
+    const v = (event.target.value === "true")
+    setValue(v);
     setHelperText('');
     setError(false);
   };
 
   useEffect(() => {
     ATApi.utilityInfo().then(response => {
-      console.log(response);
       setData(response.data.products)
       setLoading(false)
     }).catch(error => console.error(error))
@@ -89,7 +103,14 @@ export default function Form(props) {
           product_id: selectedDisco,
           prepared: value
         }).then(response => {
-          console.log(response);
+          console.log(response)
+          setTimeout(()=>{
+            props.open(response.data, 'utility')
+          }, 1000)
+        }).catch(error => {
+          setTimeout(()=>{
+            props.open(error, 'utility error')
+          }, 1000)
         })
       },
       onError: (response) => {
@@ -99,100 +120,104 @@ export default function Form(props) {
         console.log("closed");
       }
     });
-    // console.log(paymentEngine.showPaymentWidget());
     paymentEngine.showPaymentWidget();
   }
 
   const submit = event => {
     event.preventDefault();
     props.close()
+    // setTimeout(()=>{
+    //   props.open(res, 'utility')
+    // }, 1000)
     makePayment(amount)
   }
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <Close close={props.close}/>
-      <Typography variant='h4'>
-        Pay Utility bills
-      </Typography>
-      <Typography variant='caption'></Typography>
-      <form onSubmit={submit}>
-        <Grid container spacing={2} justify={!loading? 'flex-start' : 'center'}>
-          {loading ? <CircularProgress style={{marginTop: theme.spacing(4)}}/> :
-          <><Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="outlined-select-utility"
-              select
-              label="Select Electricity disco"
-              value={selectedDisco}
-              helperText="Please select your electricity distribution company"
-              variant="outlined"
-              onChange={event => setDisco(event.target.value)}>
-              {data && data.map((option) => (
-                <MenuItem key={option.product_id} value={option.product_id}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-            <Grid item xs={12}>
+    <>
+      <Paper className={classes.paper} elevation={3}>
+        <Close close={props.close}/>
+        <Typography variant='h4'>
+          Pay Utility bills
+        </Typography>
+        <Typography variant='caption'></Typography>
+        <form onSubmit={submit}>
+          <Grid container spacing={2} justify={!loading? 'flex-start' : 'center'}>
+            {loading ? <CircularProgress style={{marginTop: theme.spacing(4)}}/> :
+            <><Grid item xs={12}>
               <TextField
                 fullWidth
-                required
-                disabled={!(selectedDisco)}
-                name="meter"
-                id="outlined-required-meter"
-                type="number"
-                label="Meter Number"
+                id="outlined-select-utility"
+                select
+                label="Select Electricity disco"
+                value={selectedDisco}
+                helperText="Please select your electricity distribution company"
                 variant="outlined"
-                value={meter}
-                onChange={event => setMeter(event.target.value)}
-                placeholder="Enter your meter number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+                onChange={event => setDisco(event.target.value)}>
+                {data && data.map((option) => (
+                  <MenuItem key={option.product_id} value={option.product_id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                required
-                disabled={!(selectedDisco)}
-                name="amount"
-                id="outlined-required-amount"
-                type="number"
-                label="Amount"
-                variant="outlined"
-                value={amount}
-                onChange={event => setAmount(event.target.value)}
-                placeholder="Enter amount you want to Purchase"
-                InputLabelProps={{
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  disabled={!(selectedDisco)}
+                  name="meter"
+                  id="outlined-required-meter"
+                  type="number"
+                  label="Meter Number"
+                  variant="outlined"
+                  value={meter}
+                  onChange={event => setMeter(event.target.value)}
+                  placeholder="Enter your meter number"
+                  InputLabelProps={{
                     shrink: true,
-                }}
-                InputProps={{
-                  inputProps: {
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  required
+                  disabled={!(selectedDisco)}
+                  name="amount"
+                  id="outlined-required-amount"
+                  type="number"
+                  label="Amount"
+                  variant="outlined"
+                  value={amount}
+                  onChange={event => setAmount(event.target.value)}
+                  placeholder="Enter amount you want to Purchase"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    inputProps: {
                       max: 50000, min: 1000, step: 100,
-                  }
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl component="fieldset" error={error} className={classes.formControl}>
-                <FormLabel component="legend">Payment Plan</FormLabel>
-                <RadioGroup aria-label="payment plan" name="prepaid" value={value} onChange={handleRadioChange}>
-                  <FormControlLabel value={true} control={<Radio />} label="Prepaid" />
-                  <FormControlLabel value={false} control={<Radio />} label="Postpaid" />
-                </RadioGroup>
-                <FormHelperText>{helperText}</FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <Button fullWidth disabled={!(amount)} style={{marginTop: 8}} variant='contained' color="primary" type='submit'>BUY</Button>
-            </Grid>
-          </>}
-        </Grid>
-      </form>
-    </Paper>
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl component="fieldset" error={error} className={classes.formControl}>
+                  <FormLabel component="legend">Payment Plan</FormLabel>
+                  <RadioGroup aria-label="payment plan" name="prepaid" value={value} onChange={handleRadioChange}>
+                    <FormControlLabel value={true} control={<Radio />} label="Prepaid" />
+                    <FormControlLabel value={false} control={<Radio />} label="Postpaid" />
+                  </RadioGroup>
+                  <FormHelperText>{helperText}</FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button fullWidth disabled={!(amount)} style={{marginTop: 8}} variant='contained' color="primary" type='submit'>BUY</Button>
+              </Grid>
+            </>}
+          </Grid>
+        </form>
+      </Paper>
+    </>
   )
 }

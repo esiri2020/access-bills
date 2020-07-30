@@ -24,6 +24,7 @@ import UtilityForm from './components/forms/utilityForm'
 import MobileForm from './components/forms/nmf'
 // import VisibilitySensor from './components/visibilitySensor'
 import theme from './components/styles/theme'
+import Dialog from './components/responseDialog';
 // import App from './App';
 
 
@@ -198,8 +199,21 @@ export default function Album() {
   const classes = useStyles(theme);
   const [open, setOpen] = React.useState(false);
   const [form, setForm] = React.useState(1)
+  const [openRes, _setOpenRes] = React.useState(false)
+  const [response, setRes] = React.useState(null)
+  const [type, setType] = React.useState('')
   const serviceRef = React.useRef();
   const cardRef = React.useRef();
+
+  const handleResClose = () => {
+    _setOpenRes(false);
+  };
+
+  const setOpenRes = (res, t) => {
+    setType(t)
+    setRes(res)
+    _setOpenRes(true)
+  }
 
   const handleOpen = (n) => {
     setForm(n);
@@ -209,7 +223,7 @@ export default function Album() {
   const handleClose = () => {
     setOpen(false);
   };
-  const forms = [<MobileForm close={handleClose}/>,<TvForm close={handleClose}/>,<UtilityForm close={handleClose}/>]
+  const forms = [<MobileForm close={handleClose}/>,<TvForm close={handleClose}/>,<UtilityForm open={setOpenRes} close={handleClose}/>]
 
   const transitions = useTransition(services, item => item.id, {
     from: { transform: 'translate3d(0,-40px,0)' },
@@ -321,6 +335,8 @@ export default function Album() {
             open={open}
             handleClose={handleClose}
           >{forms[form]}</Modal>
+          <Dialog open={openRes} handleClose={handleResClose} res={response} type={type}/>
+
         </main>
         {/* Footer */}
         <footer className={classes.footer}>
