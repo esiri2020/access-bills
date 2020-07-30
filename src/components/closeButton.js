@@ -11,13 +11,14 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: '37px',
+    fontSize: '32px',
     cursor: 'pointer',
     height: '50px',
     width: '50px',
     borderRadius: '100px',
     background: '#fff',
-    boxShadow: '2px 2px 11px rgba(0,0,0,.2)'
+    boxShadow: '2px 2px 11px rgba(0,0,0,.2)',
+    paddingBottom: '4px'
   }
 }))
 

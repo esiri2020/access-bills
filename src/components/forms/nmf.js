@@ -410,20 +410,3 @@ export default function Form(props) {
     </Paper>
   )
 }
-{/* <TextField
-  fullWidth
-  required
-  name="phoneNumber"
-  id="outlined-required-phoneNumber"
-  label="Phone Number"
-  variant="outlined"
-  value={phoneNumber}
-  onChange={setphoneNumber(fields)}
-  placeholder="Enter your phone number"
-  helperText="Must be in this format 2348012345678"
-  InputLabelProps={{
-    shrink: true,
-  }}
-  InputProps={{
-    endAdornment: loading && <InputAdornment position="end"><CircularProgress size={24}/></InputAdornment>,
-  }}/>  */}
