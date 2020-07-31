@@ -118,6 +118,14 @@ const useStyles = makeStyles((theme) => ({
       height: 'auto'
     }
   },
+  paperGridx: {
+    height: '100%',
+    width: '100vw',
+    marginBottom:'2em',
+    '@media (max-width: 600px)':{
+      height: 'auto'
+    }
+  },
   paper: {
     borderRadius: 16,
     height: '100%',
@@ -187,6 +195,18 @@ const services = [
     id:3,
     title: 'Electricity',
     subtitle: 'Pay electric and other utility bills ',
+    image: './images/step-3_1.png'
+  },
+  {
+    id:4,
+    title: 'Data',
+    subtitle: 'Pay for your Spectranet, Swift and Smile ',
+    image: './images/step-3_1.png'
+  },
+  {
+    id:5,
+    title: 'Exam',
+    subtitle: 'Pay for exams registration ',
     image: './images/step-3_1.png'
   },
 ]
@@ -296,7 +316,7 @@ export default function Album() {
               </Grid>
               {/* </Paper> */}
             </Grid>
-            <Grid className={classes.paperGrid} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
+            <Grid className={classes.paperGridx} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
               {/* <Paper className={classes.paper}  elevation={2}> */}
               <Typography component="h4" variant="h4" align="center" color="textPrimary"  gutterBottom style= {{marginTop:'100px',  fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
                 Select A Service
