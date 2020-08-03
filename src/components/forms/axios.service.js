@@ -55,12 +55,28 @@ class AccessTechApi {
     return this.api.post('/utility/topup', JSON.stringify(data), this.headers())
   }
 
-  async cableInfo(number) {
+  async tvInfo() {
+    return this.api.get('/cable/info', this.headers())
+  }
+
+  async smartCardInfo(number) {
     return this.api.get(`/cable/smartcard/info/${number}`, this.headers())
   }
 
-  async cableTopup(number, data) {
-    return this.api.post(`/cable/smartcard/topup/${number}`, JSON.stringify(data), this.headers())
+  async renewDstv(number) {
+    return this.api.post(`/cable/smartcard/topup/${number}`, this.headers())
+  }
+
+  async newDstvPackage(number, data) {
+    return this.api.post(`/cable/dstv/topup/${number}`, JSON.stringify(data), this.headers())
+  }
+
+  async dstvWalletTopup(number, data) {
+    return this.api.post(`/cable/dstv/topup/${number}`, JSON.stringify(data), this.headers())
+  }
+
+  async dstvTopup(tvPackage, data) {
+    return this.api.post(`/cable/dstv/topup/${tvPackage}`, JSON.stringify(data), this.headers())
   }
 
 }

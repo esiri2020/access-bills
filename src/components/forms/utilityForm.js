@@ -101,7 +101,7 @@ export default function Form(props) {
           meter: meter,
           denomination: amount,
           product_id: selectedDisco,
-          prepared: value
+          prepaid: value
         }).then(response => {
           console.log(response)
           setTimeout(()=>{

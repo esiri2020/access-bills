@@ -187,7 +187,7 @@ const services = [
   },
   {
     id:2,
-    title: 'TV and Internet',
+    title: 'TV',
     subtitle: "Renew your cable & satellite television subscriptions",
     image: './images/step-2_3.png'
   },
