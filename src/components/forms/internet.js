@@ -66,11 +66,11 @@ export default function Form(props) {
           select
           name="selectPackage"
           id="outlined-required-selectPackage"
-          label="Select New Dstv Package"
+          label="Select ISP Package"
           variant="outlined"
           value={selectedPackage}
           onChange={event => setP(event.target.value)}
-          placeholder="Select New Dstv Package"
+          placeholder="Select ISP Package"
           InputLabelProps={{
             shrink: true,
           }}>
