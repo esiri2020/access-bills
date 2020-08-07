@@ -154,11 +154,11 @@ export default function Form(props) {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="outlined-select-type"
+                id="outlined-select-exam"
                 select
-                label="Select Internet Service Provider"
+                label="Select Exam"
                 value={type}
-                helperText="Please select your internet service provider"
+                helperText="Please select your exam"
                 variant="outlined"
                 onChange={event => setType(event.target.value)}>
                 <MenuItem value="jamb">
