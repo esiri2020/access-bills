@@ -21,6 +21,5 @@ export const makePayment = async (amount, successFunc, errorFunc) => {
       console.log("closed");
     }
   });
-  // console.log(paymentEngine.showPaymentWidget());
   paymentEngine.showPaymentWidget();
 }

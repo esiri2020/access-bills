@@ -1,19 +1,11 @@
 import React from 'react';
-// import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-// import Card from '@material-ui/core/Card';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Paper from '@material-ui/core/Paper';
 import {useTransition, animated} from 'react-spring'
-// import {Transition} from 'react-spring/renderprops'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// import CardHeader from '@material-ui/core/CardHeader';
 import Link from '@material-ui/core/Link';
 import Option, {CustomCard}from './components/card'
 import Modal from './components/modal'
@@ -24,11 +16,8 @@ import UtilityForm from './components/forms/utilityForm'
 import MobileForm from './components/forms/nmf'
 import InternetForm from './components/forms/internet'
 import ExamForm from './components/forms/exam'
-// import VisibilitySensor from './components/visibilitySensor'
 import theme from './components/styles/theme'
 import Dialog from './components/responseDialog';
-// import App from './App';
-
 
 function Copyright() {
   return (
@@ -64,10 +53,10 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    // backgroundColor:
+    //   theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    // backgroundSize: 'cover',
+    // backgroundPosition: 'center',
     height: '100%',
     width: '90%',
     display: 'flex',
@@ -86,9 +75,19 @@ const useStyles = makeStyles((theme) => ({
     height: 300,
     marginBottom: '20px',
     [theme.breakpoints.down('sm')]: {
-      display: 'none'
+      // display: 'none'
+      position: 'absolute',
+      zIndex: '-1',
+      width: '90vw',
+      height: '60vh',
+      top: '1vh'
     }
 
+  },
+  action: {
+    [theme.breakpoints.down('sm')]:{
+      marginTop: '12em'
+    }
   },
   heroButtons: {
     marginTop: theme.spacing(0),
@@ -157,7 +156,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const cards = [
   {
     id: 1,
@@ -217,7 +215,7 @@ const cardstyles = {
   margin: '2em 0', width: '100%'
 }
 
-export default function Album() {
+export default function App() {
   const classes = useStyles(theme);
   const [open, setOpen] = React.useState(false);
   const [form, setForm] = React.useState(1)
@@ -245,10 +243,11 @@ export default function Album() {
   const handleClose = () => {
     setOpen(false);
   };
+
   const forms = [
     <MobileForm close={handleClose}/>,<TvForm close={handleClose}/>,<UtilityForm open={setOpenRes} close={handleClose}/>,
     <InternetForm close={handleClose}/>, <ExamForm close={handleClose}/>
-      ]
+  ]
 
   const transitions = useTransition(services, item => item.id, {
     from: { transform: 'translate3d(0,-40px,0)' },
@@ -260,8 +259,8 @@ export default function Album() {
   if (ref /* + other conditions */) {
     // ref.scrollIntoView({ behavior: 'smooth', block: 'start' })
     window.scrollTo({ behavior: 'smooth', block: 'start', top: ref.current.offsetTop - 65 })
+    }
   }
-}
 
   return (
     <React.Fragment>
@@ -274,14 +273,13 @@ export default function Album() {
           <Container className={classes.cardGrid} maxWidth="lg">
             {/* Hero unit */}
             <Grid className={classes.paperGrid} container spacing={2} justify="center" style={{margin: '60px -20px 24px -20px', height: '90vh'}}>
-              {/* <Paper className={classes.paper} elevation={2}> */}
               <div className={classes.heroContent}>
                 <Container maxWidth="lg" height="5rem">
                   <Grid container spacing={2} justify="center" >
                   </Grid>
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center" >
-                      <Grid item  xs={12} sm={6}>
+                      <Grid item  xs={12} sm={6} className={classes.action}>
                         <Typography component="h4" style= {{    fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}} variant="h4" align="left" gutterBottom>
                           Unifying the VAS ecosystem
                         </Typography>
@@ -297,11 +295,9 @@ export default function Album() {
                   </div>
                 </Container>
               </div>
-              {/* </Paper> */}
             </Grid>
             {/* End hero unit */}
             <Grid className={classes.paperGrid} ref={cardRef} container spacing={2}  justify="center" style={cardstyles}>
-              {/* <Paper className={classes.paper}  elevation={2}> */}
               <Container maxWidth='md'>
                 <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom style= {{   fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
                   How It Works
@@ -319,10 +315,8 @@ export default function Album() {
                   </Grid>
                 ))}
               </Grid>
-              {/* </Paper> */}
             </Grid>
             <Grid className={classes.paperGridx} ref={serviceRef} container spacing={2} justify="center" style={cardstyles}>
-              {/* <Paper className={classes.paper}  elevation={2}> */}
               <Typography component="h4" variant="h4" align="center" color="textPrimary"  gutterBottom style= {{marginTop:'100px',  fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}>
                 Select A Service
               </Typography>
@@ -334,26 +328,7 @@ export default function Album() {
                       handleOpen={handleOpen}
                     />
                   </AnimatedGrid>)}
-                {/* <VisibilitySensor >
-                  {({ isVisible }) => (
-                    <Transition
-                  items={services} keys={item => item.id}
-                  from={{ opacity: 0, transform: 'translate3d(0,-40px,0)' }}
-                  enter={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
-                  leave={{ opacity: 1, transform: 'translate3d(0,-40px,0)' }}>
-                  {item => props =>
-                  <AnimatedGrid item xs={12} sm={4} key={item.id} style={props}>
-                  <Option
-                  item={item}
-                  handleOpen={handleOpen}
-                  />
-                  </AnimatedGrid>
-                  }
-                    </Transition>
-                  )}
-                </VisibilitySensor> */}
               </Grid>
-              {/* </Paper> */}
             </Grid>
           </Container>
           <Modal

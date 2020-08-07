@@ -91,6 +91,7 @@ export default function Form(props) {
     if (type !== value) {
       _setType(value)
       setLoading(true)
+      setP('')
       ATApi.examInfo(value).then(res => {
         setData(res.data)
         if (fields.filter(field => field.id === 1).length === 0){

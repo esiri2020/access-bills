@@ -5,15 +5,9 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  // NavbarBrand,
   Nav,
   NavItem,
   NavLink,
-  // UncontrolledDropdown,
-  // DropdownToggle,
-  // DropdownMenu,
-  // DropdownItem,
-  // NavbarText
 } from 'reactstrap';
 import theme from './styles/theme';
 
@@ -34,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
   top: '0',
   width: '100%',
   zIndex: '50',
-  // [theme.breakpoints.up("lg")]: {
-  //   width: '90%'
-  // }
 },
 Logo: {
   height: '40px',

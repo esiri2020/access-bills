@@ -50,14 +50,6 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs({open, handleClose, res, type}) {
-  // const [open, setOpen] = React.useState(false);
-  //
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
   const print = () => {
     const content = document.getElementById('content').innerHTML;
     var printWindow = window.open('', '', 'height=400,width=400');

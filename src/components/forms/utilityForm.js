@@ -17,26 +17,26 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const res = {
-    "status": 201,
-    "message": "Operation Successful, Recharge created, Reference : 394c86e0-d1af-11ea-bc61-67ae0cf09d72",
-    "reference": "394c86e0-d1af-11ea-bc61-67ae0cf09d72",
-    "code": "RECHARGE_COMPLETE",
-    "paid_amount": 497.475,
-    "paid_currency": "NGN",
-    "topup_amount": 500,
-    "topup_currency": "NGN",
-    "target": "54181237451",
-    "product_id": "BPE-NGIE-OR",
-    "time": "2020-07-29T15:22:03.581Z",
-    "country": "Nigeria",
-    "operator_name": "Ikeja Electric",
-    "completed_in": 14450,
-    "customer_reference": null,
-    "pin_based": true,
-    "pin_code": "5745-0465-0610-4542-8157",
-    "pin_option1": "5745-0465-0610-4542-8157"
-}
+// const res = {
+//     "status": 201,
+//     "message": "Operation Successful, Recharge created, Reference : 394c86e0-d1af-11ea-bc61-67ae0cf09d72",
+//     "reference": "394c86e0-d1af-11ea-bc61-67ae0cf09d72",
+//     "code": "RECHARGE_COMPLETE",
+//     "paid_amount": 497.475,
+//     "paid_currency": "NGN",
+//     "topup_amount": 500,
+//     "topup_currency": "NGN",
+//     "target": "54181237451",
+//     "product_id": "BPE-NGIE-OR",
+//     "time": "2020-07-29T15:22:03.581Z",
+//     "country": "Nigeria",
+//     "operator_name": "Ikeja Electric",
+//     "completed_in": 14450,
+//     "customer_reference": null,
+//     "pin_based": true,
+//     "pin_code": "5745-0465-0610-4542-8157",
+//     "pin_option1": "5745-0465-0610-4542-8157"
+// }
 
 // const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({

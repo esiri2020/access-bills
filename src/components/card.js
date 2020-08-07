@@ -2,9 +2,7 @@ import React from 'react'
 import { useSpring, animated } from 'react-spring'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography';
-// import TvIcon from '@material-ui/icons/Tv'
 import { makeStyles } from '@material-ui/core/styles'
-// import CardActionArea from '@material-ui/core/CardActionArea';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -26,7 +24,6 @@ const styles = makeStyles({
     }
   },
   card: {
-    // minWidth: 256,
     borderRadius: 1,
     boxShadow: 'none',
     height: '100%'
@@ -43,7 +40,6 @@ const styles = makeStyles({
     height: '100%'
   },
   title: {
-    // fontFamily: 'Keania One',
     fontSize: '1.2rem',
     fontWeight: '500',
     color: '#203f52',
@@ -51,7 +47,6 @@ const styles = makeStyles({
   },
   subtitle: {
     justifySelf: 'flex-end',
-    // fontFamily: 'Montserrat',
     color: '#203f52',
     opacity: 0.87,
     marginTop: '2rem',
@@ -96,7 +91,7 @@ export function CustomCard(props) {
   const mediaStyles = useFourThreeCardMediaStyles();
 
   return (
-    
+
       <Card className={classes.card} >
         <CardMedia classes={mediaStyles} className={classes.media} image={image} />
         <CardContent className={classes.content}>

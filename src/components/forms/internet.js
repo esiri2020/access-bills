@@ -114,6 +114,7 @@ export default function Form(props) {
   const setIsp = value => {
     if (isp !== value) {
       _setIsp(value)
+      setP('')
       if (value === 'smile'){
         setLoading(true)
         ATApi.smilePlans().then(res => {

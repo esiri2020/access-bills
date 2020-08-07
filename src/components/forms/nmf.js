@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-// import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MenuItem from "@material-ui/core/MenuItem";
@@ -36,8 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     position: 'relative',
-    // display: 'flex',
-    // flexDirection: 'column',
     cursor: 'pointer',
     boxShadow: '0px 10px 10px -5px rgba(0, 0, 0, 0.05)',
     willChange: 'width, height',
@@ -73,7 +70,6 @@ export default function Form(props) {
       const number = event.slice(1)
       if (type === 'Airtime'){
       ATApi.airtimeInfo(number).then(response => {
-        // console.log(response.data.products[0].product_id);
         setData(response.data)
         setLoading(false)
         if (fields.filter(field => field.id === 6).length === 0){
@@ -95,7 +91,6 @@ export default function Form(props) {
             nFields.splice(1, 0, Carrier, ValidityField)
             setFields(nFields)
           }
-          // setLoaded(true)
         }).catch(error => {
           console.log(error)
           setLoading(false)
@@ -115,13 +110,6 @@ export default function Form(props) {
     const [selected_package] = data.products.filter(item => item.product_id === value)
     setdataAmount(selected_package.face_value)
   }
-
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log(data)
-  //
-  //   }
-  // }, [data])
 
   const NumberField = {
     id: 1,
@@ -368,31 +356,6 @@ export default function Form(props) {
     setdataAmount: _setDataAmount,
     dataId: dataId
   }
-
-  // const makePayment = async (amount, dataAmount) => {
-  //   const key = process.env.REACT_APP_REMITA_KEY
-  //   const RmPaymentEngine = window.RmPaymentEngine
-  //   var paymentEngine = RmPaymentEngine.init({
-  //     key: key,
-  //     customerId: "",
-  //     firstName: "",
-  //     lastName: "",
-  //     email: "",
-  //     narration: "Payment Description",
-  //     amount: type === 'Airtime' ? amount : dataAmount,
-  //     onSuccess: function (response) {
-  //       console.log('callback Successful Response', response);
-  //     },
-  //     onError: function (response) {
-  //       console.log('callback Error Response', response);
-  //     },
-  //     onClose: function () {
-  //       console.log("closed");
-  //     }
-  //   });
-  //   // console.log(paymentEngine.showPaymentWidget());
-  //   paymentEngine.showPaymentWidget();
-  // }
 
   const submit = (event) => {
     event.preventDefault()
