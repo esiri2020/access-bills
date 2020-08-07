@@ -201,13 +201,13 @@ const services = [
     id:4,
     title: 'Internet',
     subtitle: 'Pay for your Spectranet, Swift and Smile ',
-    image: './images/step-3_1.png'
+    image: './images/internet.png'
   },
   {
     id:5,
     title: 'Exam',
     subtitle: 'Pay for exams registration ',
-    image: './images/step-3_1.png'
+    image: './images/exam.png'
   },
 ]
 
@@ -286,7 +286,7 @@ export default function App() {
                         <Typography variant="body1" align="left" style= {{    fontSize: '12px', fontWeight: '500', color: '#203f52', fontFamily: 'Rubik',}}  paragraph>
                           AccessTech is a VAS Oriented company located in Lagos-Nigeria, servicing clients across Nigeria and the world.
                         </Typography>
-                        <Button  variant="contained" style={{backgroundColor:"#24b47e", color: '#203f52'}} onClick={() => scrollTo(serviceRef)}>
+                        <Button  variant="contained" style={{backgroundColor:"#24b47e", color: '#fff'}} onClick={() => scrollTo(serviceRef)}>
                           select a service to pay for
                         </Button>
                       </Grid>
