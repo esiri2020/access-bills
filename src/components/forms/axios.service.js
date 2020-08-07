@@ -43,8 +43,16 @@ class AccessTechApi {
     return this.api.get(`/airtime/info/${phoneNumber}`, this.headers())
   }
 
+  async airtimeTopup(phoneNumber, data) {
+    return this.api.post(`/airtime/topup/${phoneNumber}`, JSON.stringify(data), this.headers())
+  }
+
   async dataInfo(phoneNumber) {
     return this.api.get(`/data/info/${phoneNumber}`, this.headers())
+  }
+
+  async dataTopup(phoneNumber, data) {
+    return this.api.post(`/data/topup/${phoneNumber}`, JSON.stringify(data), this.headers())
   }
 
   async utilityInfo() {
@@ -77,6 +85,39 @@ class AccessTechApi {
 
   async dstvTopup(tvPackage, data) {
     return this.api.post(`/cable/dstv/topup/${tvPackage}`, JSON.stringify(data), this.headers())
+  }
+
+  async spectranetPlans() {
+    return this.api.get('/internet/spectranet/packages', this.headers())
+  }
+
+  async spectranetTopup(code, data) {
+    return this.api.post(`internet/spectranet/topup/${code}`, JSON.stringify(data), this.headers())
+  }
+
+  async smilePlans() {
+    return this.api.get('/internet/smile/packages', this.headers())
+  }
+
+  async smileTopup(code, data) {
+    return this.api.post(`internet/smile/topup/${code}`, JSON.stringify(data), this.headers())
+  }
+
+  async examInfo(type) {
+    if (type === 'jamb') {
+      return this.api.get('/exam/jamb/info', this.headers())
+    } else {
+      return this.api.get('/exam/waec/info', this.headers())
+    }
+  }
+
+  async examPin(type, code) {
+    const data = { quantity: 1 }
+    if (type === 'jamb') {
+      return this.api.post(`exam/jamb/pin/${code}`, JSON.stringify(data), this.headers())
+    } else {
+      return this.api.post(`exam/waec/pin/${code}`, JSON.stringify(data), this.headers())
+    }
   }
 
 }

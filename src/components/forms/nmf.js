@@ -14,6 +14,7 @@ import ATApi from './axios.service';
 import MuiPhoneNumber from 'material-ui-phone-number'
 import theme from '../styles/theme'
 import Close from '../closeButton'
+import {makePayment} from './remita'
 
 const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +64,7 @@ export default function Form(props) {
   const [validity, _setValidity] = useState('')
   const [dataAmount, setdataAmount] = useState('')
   const [fields, setFields] = useState([]);
+  const [dataId, setDataId] = useState('');
 
   const setphoneNumber = fields => event => {
     _setphoneNumber(event);
@@ -71,7 +73,7 @@ export default function Form(props) {
       const number = event.slice(1)
       if (type === 'Airtime'){
       ATApi.airtimeInfo(number).then(response => {
-        console.log(response.data);
+        // console.log(response.data.products[0].product_id);
         setData(response.data)
         setLoading(false)
         if (fields.filter(field => field.id === 6).length === 0){
@@ -86,7 +88,6 @@ export default function Form(props) {
       }
       else if (type === 'Data') {
         ATApi.dataInfo(number).then(response => {
-          console.log(response.data);
           setData(response.data)
           setLoading(false)
           if (fields.filter(field => field.id === 6).length === 0){
@@ -105,9 +106,22 @@ export default function Form(props) {
     }
   }
   const setValidity = value => {
-    setdataAmount('')
+    setDataId('')
     _setValidity(value)
   }
+
+  const _setDataAmount = value => {
+    setDataId(value)
+    const [selected_package] = data.products.filter(item => item.product_id === value)
+    setdataAmount(selected_package.face_value)
+  }
+
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log(data)
+  //
+  //   }
+  // }, [data])
 
   const NumberField = {
     id: 1,
@@ -254,7 +268,7 @@ export default function Form(props) {
   const DataVolume = {
     id: 9,
     xs: 6,
-    Field: ({data, validity, dataAmount, setdataAmount}) => {
+    Field: ({data, validity, dataAmount, setdataAmount, dataId}) => {
       let array = data.products.filter(a => a.validity === validity)
       return (
         <TextField
@@ -265,14 +279,14 @@ export default function Form(props) {
           id="outlined-required-dataAmount"
           label="Select Data Bundle"
           variant="outlined"
-          value={dataAmount}
+          value={dataId}
           onChange={event => setdataAmount(event.target.value)}
           placeholder="Select Data Bundle"
           InputLabelProps={{
             shrink: true,
           }}>
           {array.map((item) => (
-            <MenuItem key={item.product_id} value={item.face_value}>
+            <MenuItem key={item.product_id} value={item.product_id}>
               <div style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
                 <div>{item.product_id.split('-')[3]}</div><div>{`₦${item.face_value}`}</div>
               </div>
@@ -351,38 +365,79 @@ export default function Form(props) {
     validity: validity,
     setValidity: setValidity,
     dataAmount: dataAmount,
-    setdataAmount: setdataAmount,
+    setdataAmount: _setDataAmount,
+    dataId: dataId
   }
 
-  const makePayment = async (amount, dataAmount) => {
-    const key = process.env.REACT_APP_REMITA_KEY
-    const RmPaymentEngine = window.RmPaymentEngine
-    var paymentEngine = RmPaymentEngine.init({
-      key: key,
-      customerId: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      narration: "Payment Description",
-      amount: type === 'Airtime' ? amount : dataAmount,
-      onSuccess: function (response) {
-        console.log('callback Successful Response', response);
-      },
-      onError: function (response) {
-        console.log('callback Error Response', response);
-      },
-      onClose: function () {
-        console.log("closed");
-      }
-    });
-    // console.log(paymentEngine.showPaymentWidget());
-    paymentEngine.showPaymentWidget();
-  }
+  // const makePayment = async (amount, dataAmount) => {
+  //   const key = process.env.REACT_APP_REMITA_KEY
+  //   const RmPaymentEngine = window.RmPaymentEngine
+  //   var paymentEngine = RmPaymentEngine.init({
+  //     key: key,
+  //     customerId: "",
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     narration: "Payment Description",
+  //     amount: type === 'Airtime' ? amount : dataAmount,
+  //     onSuccess: function (response) {
+  //       console.log('callback Successful Response', response);
+  //     },
+  //     onError: function (response) {
+  //       console.log('callback Error Response', response);
+  //     },
+  //     onClose: function () {
+  //       console.log("closed");
+  //     }
+  //   });
+  //   // console.log(paymentEngine.showPaymentWidget());
+  //   paymentEngine.showPaymentWidget();
+  // }
 
   const submit = (event) => {
     event.preventDefault()
+    const number = phoneNumber.slice(1)
+    const airtimeSuccessFunc = response => {
+      const postData = {
+        product_id: data.products[0].product_id,
+      	denomination : amount,
+      	send_sms : false,
+      	sms_text : "",
+      	awuf4u: true
+      }
+      ATApi.airtimeTopup(number, postData).then(res => {
+        alert("Purchase successful!")
+        console.log(res.data);
+      }).catch(err => {
+        alert('Something went wrong, please contact admin')
+        console.error(err);
+      })
+    }
+    const dataSuccessFunc = response => {
+      const postData = {
+        product_id: dataId,
+      	denomination : dataAmount,
+      	send_sms : false,
+      	sms_text : "",
+        customer_reference : "xxx193"
+      }
+      ATApi.dataTopup(number, postData).then(res => {
+        alert("Purchase successful!")
+        console.log(res.data);
+      }).catch(err => {
+        alert('Something went wrong, please contact admin')
+        console.error(err);
+      })
+    }
+    const errorFunc = (error) => {
+      alert(error.message)
+    }
     props.close()
-    makePayment(amount, dataAmount)
+    if (type === 'Airtime') {
+      makePayment(amount, airtimeSuccessFunc, errorFunc)
+    } else {
+      makePayment(dataAmount, dataSuccessFunc, errorFunc)
+    }
   }
 
   useChain(open ? [springRef, transRef] : [transRef, springRef], [0, open ? 0.1 : 0.2])

@@ -140,6 +140,7 @@ export default function Form(props) {
       }).catch(err => {
         console.error(err)
         setLoading(false)
+        alert('Invalid smart card number')
       })
 
     }
@@ -268,7 +269,7 @@ export default function Form(props) {
               />
             </Grid>
 
-            {fields.length && transitions.map(({ item, key, props }) => (
+            {(fields.length > 0) && transitions.map(({ item, key, props }) => (
               <AnimatedGrid key={item.id} style={{...props}} item xs={item.xs}>
                 {item.Field(formProps)}
               </AnimatedGrid>

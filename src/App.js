@@ -22,6 +22,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import TvForm from './components/forms/tvForm'
 import UtilityForm from './components/forms/utilityForm'
 import MobileForm from './components/forms/nmf'
+import InternetForm from './components/forms/internet'
+import ExamForm from './components/forms/exam'
 // import VisibilitySensor from './components/visibilitySensor'
 import theme from './components/styles/theme'
 import Dialog from './components/responseDialog';
@@ -199,7 +201,7 @@ const services = [
   },
   {
     id:4,
-    title: 'Data',
+    title: 'Internet',
     subtitle: 'Pay for your Spectranet, Swift and Smile ',
     image: './images/step-3_1.png'
   },
@@ -243,7 +245,10 @@ export default function Album() {
   const handleClose = () => {
     setOpen(false);
   };
-  const forms = [<MobileForm close={handleClose}/>,<TvForm close={handleClose}/>,<UtilityForm open={setOpenRes} close={handleClose}/>]
+  const forms = [
+    <MobileForm close={handleClose}/>,<TvForm close={handleClose}/>,<UtilityForm open={setOpenRes} close={handleClose}/>,
+    <InternetForm close={handleClose}/>, <ExamForm close={handleClose}/>
+      ]
 
   const transitions = useTransition(services, item => item.id, {
     from: { transform: 'translate3d(0,-40px,0)' },
