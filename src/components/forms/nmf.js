@@ -357,44 +357,44 @@ export default function Form(props) {
     dataId: dataId
   }
 
+  const airtimeSuccessFunc = response => {
+    const postData = {
+      product_id: data.products[0].product_id,
+      denomination : amount,
+      send_sms : false,
+      sms_text : "",
+      awuf4u: true
+    }
+    ATApi.airtimeTopup(phoneNumber.slice(1), postData).then(res => {
+      alert("Purchase successful!")
+      console.log(res.data);
+    }).catch(err => {
+      alert('Something went wrong, please contact admin')
+      console.error(err);
+    })
+  }
+  const dataSuccessFunc = response => {
+    const postData = {
+      product_id: dataId,
+      denomination : dataAmount,
+      send_sms : false,
+      sms_text : "",
+      customer_reference : "xxx193"
+    }
+    ATApi.dataTopup(phoneNumber.slice(1), postData).then(res => {
+      alert("Purchase successful!")
+      console.log(res.data);
+    }).catch(err => {
+      alert('Something went wrong, please contact admin')
+      console.error(err);
+    })
+  }
+  const errorFunc = (error) => {
+    alert(error.message)
+  }
+
   const submit = (event) => {
     event.preventDefault()
-    const number = phoneNumber.slice(1)
-    const airtimeSuccessFunc = response => {
-      const postData = {
-        product_id: data.products[0].product_id,
-      	denomination : amount,
-      	send_sms : false,
-      	sms_text : "",
-      	awuf4u: true
-      }
-      ATApi.airtimeTopup(number, postData).then(res => {
-        alert("Purchase successful!")
-        console.log(res.data);
-      }).catch(err => {
-        alert('Something went wrong, please contact admin')
-        console.error(err);
-      })
-    }
-    const dataSuccessFunc = response => {
-      const postData = {
-        product_id: dataId,
-      	denomination : dataAmount,
-      	send_sms : false,
-      	sms_text : "",
-        customer_reference : "xxx193"
-      }
-      ATApi.dataTopup(number, postData).then(res => {
-        alert("Purchase successful!")
-        console.log(res.data);
-      }).catch(err => {
-        alert('Something went wrong, please contact admin')
-        console.error(err);
-      })
-    }
-    const errorFunc = (error) => {
-      alert(error.message)
-    }
     props.close()
     if (type === 'Airtime') {
       makePayment(amount, airtimeSuccessFunc, errorFunc)

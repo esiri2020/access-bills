@@ -126,18 +126,19 @@ export default function Form(props) {
     leave: { opacity: 0, transform: 'scale(0)', position: "absolute"}
   })
 
+  const SuccessFunc = response => {
+    ATApi.examPin(type, selectedPackage).then(res => {
+      console.log(res.data);
+      alert(res.data)
+    })
+  }
+  const errorFunc = (error) => {
+    alert(error.message)
+  }
+  
   const submit = e => {
     e.preventDefault()
     const [selected] = data.products.filter(item => item.code === selectedPackage)
-    const SuccessFunc = response => {
-      ATApi.examPin(type, selectedPackage).then(res => {
-        console.log(res.data);
-        alert(res.data)
-      })
-    }
-    const errorFunc = (error) => {
-      alert(error.message)
-    }
     props.close()
     makePayment(selected.topup_value, SuccessFunc, errorFunc)
   }

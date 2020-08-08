@@ -164,25 +164,25 @@ export default function Form(props) {
     leave: { opacity: 0, transform: 'scale(0)', position: "absolute"}
   })
 
+  const smileSuccessFunc = response => {
+    ATApi.smileTopup(selectedPackage, { meter }).then(res => {
+      console.log(res.data);
+      alert(res.data)
+    })
+  }
+  const spectranetSuccessFunc = response => {
+    ATApi.spectranetTopup(selectedPackage, { meter }).then(res => {
+      console.log(res.data);
+      alert(res.data)
+    })
+  }
+  const errorFunc = (error) => {
+    alert(error.message)
+  }
+
   const submit = e => {
     e.preventDefault()
-    const postData = { meter }
     const [selected] = data.products.filter(item => item.code === selectedPackage)
-    const smileSuccessFunc = response => {
-      ATApi.smileTopup(selectedPackage, postData).then(res => {
-        console.log(res.data);
-        alert(res.data)
-      })
-    }
-    const spectranetSuccessFunc = response => {
-      ATApi.spectranetTopup(selectedPackage, postData).then(res => {
-        console.log(res.data);
-        alert(res.data)
-      })
-    }
-    const errorFunc = (error) => {
-      alert(error.message)
-    }
     props.close()
     if (isp === "smile") {
       makePayment(selected.topup_value, smileSuccessFunc, errorFunc)
