@@ -10,12 +10,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import {useTransition, useSpring, useChain, config , animated} from 'react-spring'
 import Close from '../closeButton'
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
+import {makePayment} from './remita'
 
 // const res = {
 //     "status": 201,
@@ -40,11 +35,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 // const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   paper: {
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
@@ -53,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
     '@media (max-width: 600px)':{
-      width: 'auto'
+      maxWidth: '95vw'
     }
   },
 }));
@@ -66,16 +56,6 @@ export default function Form(props) {
   const [loading, setLoading] = useState(true)
   const [meter, setMeter] = useState('')
   const [data, setData] = useState(null)
-  const [value, setValue] = useState(true);
-  const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState('');
-
-  const handleRadioChange = (event) => {
-    const v = (event.target.value === "true")
-    setValue(v);
-    setHelperText('');
-    setError(false);
-  };
 
   useEffect(() => {
     ATApi.utilityInfo().then(response => {
@@ -84,43 +64,27 @@ export default function Form(props) {
     }).catch(error => console.error(error))
   },[])
 
-  const makePayment = async (amount) => {
-    const key = process.env.REACT_APP_REMITA_KEY
-    const RmPaymentEngine = window.RmPaymentEngine
-    var paymentEngine = RmPaymentEngine.init({
-      key: key,
-      customerId: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      narration: "Payment Description",
-      amount: amount,
-      onSuccess: (response) => {
-        console.log('callback Successful Response', response);
-        return ATApi.utilityTopUp({
-          meter: meter,
-          denomination: amount,
-          product_id: selectedDisco,
-          prepaid: value
-        }).then(response => {
-          console.log(response)
-          setTimeout(()=>{
-            props.open(response.data, 'utility')
-          }, 1000)
-        }).catch(error => {
-          setTimeout(()=>{
-            props.open(error, 'utility error')
-          }, 1000)
-        })
-      },
-      onError: (response) => {
-        console.log('callback Error Response', response);
-      },
-      onClose: () => {
-        console.log("closed");
-      }
-    });
-    paymentEngine.showPaymentWidget();
+  const successFunc = (response) => {
+    console.log('callback Successful Response', response);
+    return ATApi.utilityTopUp({
+      meter: meter,
+      denomination: amount,
+      product_id: selectedDisco,
+      prepaid: true
+    }).then(response => {
+      console.log(response)
+      setTimeout(()=>{
+        props.open(response.data, 'utility')
+      }, 1000)
+    }).catch(error => {
+      setTimeout(()=>{
+        props.open(error, 'utility error')
+      }, 1000)
+    })
+  }
+
+  const errorFunc = (response) => {
+    console.log('callback Error Response', response);
   }
 
   const submit = event => {
@@ -129,7 +93,7 @@ export default function Form(props) {
     // setTimeout(()=>{
     //   props.open(res, 'utility')
     // }, 1000)
-    makePayment(amount)
+    makePayment(amount, successFunc, errorFunc)
   }
 
   return (
@@ -200,16 +164,6 @@ export default function Form(props) {
                     }
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl component="fieldset" error={error} className={classes.formControl}>
-                  <FormLabel component="legend">Payment Plan</FormLabel>
-                  <RadioGroup aria-label="payment plan" name="prepaid" value={value} onChange={handleRadioChange}>
-                    <FormControlLabel value={true} control={<Radio />} label="Prepaid" />
-                    {/* <FormControlLabel value={false} control={<Radio />} label="Postpaid" /> */}
-                  </RadioGroup>
-                  <FormHelperText>{helperText}</FormHelperText>
-                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <Button fullWidth disabled={!(amount)} style={{marginTop: 8}} variant='contained' color="primary" type='submit'>BUY</Button>

@@ -15,11 +15,6 @@ import {makePayment} from './remita'
 
 const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   paper: {
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
@@ -28,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
     '@media (max-width: 600px)':{
-      width: 'auto'
+      maxWidth: '95vw'
     }
   },
 }));
@@ -126,18 +121,19 @@ export default function Form(props) {
     leave: { opacity: 0, transform: 'scale(0)', position: "absolute"}
   })
 
+  const SuccessFunc = response => {
+    ATApi.examPin(type, selectedPackage).then(res => {
+      console.log(res.data);
+      alert(res.data)
+    })
+  }
+  const errorFunc = (error) => {
+    alert(error.message)
+  }
+
   const submit = e => {
     e.preventDefault()
     const [selected] = data.products.filter(item => item.code === selectedPackage)
-    const SuccessFunc = response => {
-      ATApi.examPin(type, selectedPackage).then(res => {
-        console.log(res.data);
-        alert(res.data)
-      })
-    }
-    const errorFunc = (error) => {
-      alert(error.message)
-    }
     props.close()
     makePayment(selected.topup_value, SuccessFunc, errorFunc)
   }

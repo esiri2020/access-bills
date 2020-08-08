@@ -17,11 +17,6 @@ import {makePayment} from './remita'
 
 const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   paper: {
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
@@ -30,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
     '@media (max-width: 600px)':{
-      width: 'auto'
+      maxWidth: '90vw'
     }
   },
   container: {
@@ -140,7 +135,7 @@ export default function Form(props) {
 
   const AmountField = {
     id: 2,
-    xs: 6,
+    xs: 12,
     Field: ({amount, setAmount}) => {
       return (
         <TextField
@@ -305,7 +300,7 @@ export default function Form(props) {
   useEffect(() => {
     if(amount && (fields.filter(field => field.id === 7).length === 0)) {
       const nFields = [...fields]
-      nFields.splice(3, 0, SubmitButton)
+      nFields.splice(4, 0, SubmitButton)
       setFields(nFields)
     }
   }, [amount, fields, SubmitButton])
@@ -357,44 +352,44 @@ export default function Form(props) {
     dataId: dataId
   }
 
+  const airtimeSuccessFunc = response => {
+    const postData = {
+      product_id: data.products[0].product_id,
+      denomination : amount,
+      send_sms : false,
+      sms_text : "",
+      awuf4u: true
+    }
+    ATApi.airtimeTopup(phoneNumber.slice(1), postData).then(res => {
+      alert("Purchase successful!")
+      console.log(res.data);
+    }).catch(err => {
+      alert('Something went wrong, please contact admin')
+      console.error(err);
+    })
+  }
+  const dataSuccessFunc = response => {
+    const postData = {
+      product_id: dataId,
+      denomination : dataAmount,
+      send_sms : false,
+      sms_text : "",
+      customer_reference : "xxx193"
+    }
+    ATApi.dataTopup(phoneNumber.slice(1), postData).then(res => {
+      alert("Purchase successful!")
+      console.log(res.data);
+    }).catch(err => {
+      alert('Something went wrong, please contact admin')
+      console.error(err);
+    })
+  }
+  const errorFunc = (error) => {
+    alert(error.message)
+  }
+
   const submit = (event) => {
     event.preventDefault()
-    const number = phoneNumber.slice(1)
-    const airtimeSuccessFunc = response => {
-      const postData = {
-        product_id: data.products[0].product_id,
-      	denomination : amount,
-      	send_sms : false,
-      	sms_text : "",
-      	awuf4u: true
-      }
-      ATApi.airtimeTopup(number, postData).then(res => {
-        alert("Purchase successful!")
-        console.log(res.data);
-      }).catch(err => {
-        alert('Something went wrong, please contact admin')
-        console.error(err);
-      })
-    }
-    const dataSuccessFunc = response => {
-      const postData = {
-        product_id: dataId,
-      	denomination : dataAmount,
-      	send_sms : false,
-      	sms_text : "",
-        customer_reference : "xxx193"
-      }
-      ATApi.dataTopup(number, postData).then(res => {
-        alert("Purchase successful!")
-        console.log(res.data);
-      }).catch(err => {
-        alert('Something went wrong, please contact admin')
-        console.error(err);
-      })
-    }
-    const errorFunc = (error) => {
-      alert(error.message)
-    }
     props.close()
     if (type === 'Airtime') {
       makePayment(amount, airtimeSuccessFunc, errorFunc)
