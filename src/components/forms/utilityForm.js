@@ -206,7 +206,7 @@ export default function Form(props) {
                   <FormLabel component="legend">Payment Plan</FormLabel>
                   <RadioGroup aria-label="payment plan" name="prepaid" value={value} onChange={handleRadioChange}>
                     <FormControlLabel value={true} control={<Radio />} label="Prepaid" />
-                    <FormControlLabel value={false} control={<Radio />} label="Postpaid" />
+                    {/* <FormControlLabel value={false} control={<Radio />} label="Postpaid" /> */}
                   </RadioGroup>
                   <FormHelperText>{helperText}</FormHelperText>
                 </FormControl>

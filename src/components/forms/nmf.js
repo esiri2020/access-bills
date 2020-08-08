@@ -409,7 +409,7 @@ export default function Form(props) {
     <Paper className={classes.paper} elevation={3}>
       <Close close={props.close}/>
       <Typography variant='h4'>
-        {type ? `Buy ${type}` : 'Pay Connectivity bills'}
+        {type ? `Buy ${type}` : 'Airtime and Data'}
       </Typography>
       <Typography variant='caption'></Typography>
       <form className={classes.form} validate='true' onSubmit={submit}>

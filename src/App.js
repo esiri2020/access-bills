@@ -160,7 +160,7 @@ const cards = [
   {
     id: 1,
     title: 'Step 1',
-    subtitle: ['Select the service you would like to pay for (Disco bill, Internet data, Airtime)'],
+    subtitle: ['Select the service you would like to pay for (electricity bill, Internet data, Airtime)'],
     image: './images/select a service step 1.svg'
   },
   {
@@ -172,7 +172,7 @@ const cards = [
   {
     id: 3,
     title: 'Step 3',
-    subtitle: ['Make payment online through our payment partner and recieve value.'],
+    subtitle: ['Make your payment online and recieve value instantly.'],
     image: './images/pay step 3.svg'
   },
 
@@ -182,7 +182,7 @@ const services = [
   {
     id:1,
     title: 'Airtime and Data',
-    subtitle: 'Buy credit and data',
+    subtitle: 'Purchase your airtime and data',
     image: './images/step-1.svg'
   },
   {
@@ -200,7 +200,7 @@ const services = [
   {
     id:4,
     title: 'Internet',
-    subtitle: 'Pay for your Spectranet, Swift and Smile ',
+    subtitle: 'Purchase data on your internet ISP provider',
     image: './images/internet.png'
   },
   {
@@ -303,9 +303,7 @@ export default function App() {
                   How It Works
                 </Typography>
                 <Typography variant="body1" align="center" color="textSecondary" paragraph>
-                  Paying for any service online should be easy, convenient and secure.
-                  we have curated a 3 step way for you to quickly top up your airtime,
-                  renew your dstv subscriptions, renew your data access across several ISPs and also pay for your light.
+                Paying for any services online should be easy, convenient and secure. we have curated a 3-step way for you to quickly top up your airtime, renew your cable subscriptions, renew your data access across several ISPs and also pay for your electricity.
                 </Typography>
               </Container>
               <Grid container spacing={4} className={classes.cardsGrid} style={{margin: 0, width: '100%'}}>
