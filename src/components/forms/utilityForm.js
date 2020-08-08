@@ -10,12 +10,6 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import {useTransition, useSpring, useChain, config , animated} from 'react-spring'
 import Close from '../closeButton'
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
 
 // const res = {
 //     "status": 201,
@@ -66,16 +60,6 @@ export default function Form(props) {
   const [loading, setLoading] = useState(true)
   const [meter, setMeter] = useState('')
   const [data, setData] = useState(null)
-  const [value, setValue] = useState(true);
-  const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState('');
-
-  const handleRadioChange = (event) => {
-    const v = (event.target.value === "true")
-    setValue(v);
-    setHelperText('');
-    setError(false);
-  };
 
   useEffect(() => {
     ATApi.utilityInfo().then(response => {
@@ -101,7 +85,7 @@ export default function Form(props) {
           meter: meter,
           denomination: amount,
           product_id: selectedDisco,
-          prepaid: value
+          prepaid: true
         }).then(response => {
           console.log(response)
           setTimeout(()=>{
@@ -200,16 +184,6 @@ export default function Form(props) {
                     }
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl component="fieldset" error={error} className={classes.formControl}>
-                  <FormLabel component="legend">Payment Plan</FormLabel>
-                  <RadioGroup aria-label="payment plan" name="prepaid" value={value} onChange={handleRadioChange}>
-                    <FormControlLabel value={true} control={<Radio />} label="Prepaid" />
-                    <FormControlLabel value={false} control={<Radio />} label="Postpaid" />
-                  </RadioGroup>
-                  <FormHelperText>{helperText}</FormHelperText>
-                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <Button fullWidth disabled={!(amount)} style={{marginTop: 8}} variant='contained' color="primary" type='submit'>BUY</Button>
