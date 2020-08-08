@@ -17,11 +17,6 @@ import {makePayment} from './remita'
 
 const AnimatedGrid = animated(Grid)
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   paper: {
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
@@ -30,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '100ch',
     '@media (max-width: 600px)':{
-      width: 'auto'
+      maxWidth: '90vw'
     }
   },
   container: {
@@ -140,7 +135,7 @@ export default function Form(props) {
 
   const AmountField = {
     id: 2,
-    xs: 6,
+    xs: 12,
     Field: ({amount, setAmount}) => {
       return (
         <TextField
@@ -305,7 +300,7 @@ export default function Form(props) {
   useEffect(() => {
     if(amount && (fields.filter(field => field.id === 7).length === 0)) {
       const nFields = [...fields]
-      nFields.splice(3, 0, SubmitButton)
+      nFields.splice(4, 0, SubmitButton)
       setFields(nFields)
     }
   }, [amount, fields, SubmitButton])
