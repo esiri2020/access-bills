@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import {useTransition, useSpring, useChain, config , animated} from 'react-spring'
 import Close from '../closeButton'
+import {makePayment} from './remita'
 
 // const res = {
 //     "status": 201,
@@ -68,43 +69,27 @@ export default function Form(props) {
     }).catch(error => console.error(error))
   },[])
 
-  const makePayment = async (amount) => {
-    const key = process.env.REACT_APP_REMITA_KEY
-    const RmPaymentEngine = window.RmPaymentEngine
-    var paymentEngine = RmPaymentEngine.init({
-      key: key,
-      customerId: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      narration: "Payment Description",
-      amount: amount,
-      onSuccess: (response) => {
-        console.log('callback Successful Response', response);
-        return ATApi.utilityTopUp({
-          meter: meter,
-          denomination: amount,
-          product_id: selectedDisco,
-          prepaid: true
-        }).then(response => {
-          console.log(response)
-          setTimeout(()=>{
-            props.open(response.data, 'utility')
-          }, 1000)
-        }).catch(error => {
-          setTimeout(()=>{
-            props.open(error, 'utility error')
-          }, 1000)
-        })
-      },
-      onError: (response) => {
-        console.log('callback Error Response', response);
-      },
-      onClose: () => {
-        console.log("closed");
-      }
-    });
-    paymentEngine.showPaymentWidget();
+  const successFunc = (response) => {
+    console.log('callback Successful Response', response);
+    return ATApi.utilityTopUp({
+      meter: meter,
+      denomination: amount,
+      product_id: selectedDisco,
+      prepaid: true
+    }).then(response => {
+      console.log(response)
+      setTimeout(()=>{
+        props.open(response.data, 'utility')
+      }, 1000)
+    }).catch(error => {
+      setTimeout(()=>{
+        props.open(error, 'utility error')
+      }, 1000)
+    })
+  }
+
+  const errorFunc = (response) => {
+    console.log('callback Error Response', response);
   }
 
   const submit = event => {
@@ -113,7 +98,7 @@ export default function Form(props) {
     // setTimeout(()=>{
     //   props.open(res, 'utility')
     // }, 1000)
-    makePayment(amount)
+    makePayment(amount, successFunc, errorFunc)
   }
 
   return (
