@@ -16,7 +16,7 @@
     "material-ui-phone-number": "^2.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-spring": "^8.0.27",
     "react-visibility-sensor": "^5.1.1",
     "reactstrap": "^8.4.1"
